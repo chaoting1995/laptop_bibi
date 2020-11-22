@@ -1,0 +1,175 @@
+/* * {
+            outline: auto;
+        } */
+
+/* 網站背景色 */
+body {
+  background-color: #e0e0e0;
+}
+
+/* header start*/
+header {
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+}
+
+.header_line {
+  border-top: 1px solid white;
+  width: 1000px;
+  height: 50px;
+  margin: auto;
+}
+
+.logo {
+  width: 50px;
+}
+
+.header_title {
+  font: 微軟正黑體;
+  margin-left: 10px;
+}
+
+/* header over */
+
+.wrap {
+  display: flex;
+  min-height: 800px;
+}
+
+aside {
+  width: 25%;
+  margin-right: 20px;
+  /* background-color: #aaf; */
+}
+
+main {
+  width: 75%;
+  /* background-color: rgb(144, 151, 151); */
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column-reverse; */
+}
+
+.card1 {
+  /* background-color: #faf; */
+  width: 270px;
+  height: 340px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.wrap_product_img {
+  position: relative;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.card1 img {
+  width: 100%;
+  overflow: hidden;
+}
+
+.card1 .fast_view {
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding-top: 15px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  vertical-align: middle;
+  transition: 0.5s;
+}
+.wrap_product_img:hover .fast_view {
+  transform: translateY(-50px);
+}
+.fast_view h1 {
+  color: rgb(61, 61, 61);
+  font-size: 15px;
+}
+.product_title {
+  margin-top: 15px;
+}
+
+.product_price {
+  font-size: 13px;
+  margin-top: -10px;
+}
+
+.compare_btn {
+  /* margin: auto; */
+  /* text-align: center */
+  /* vertical-align: middle */
+  margin-top: -10px;
+  width: 100%;
+  height: 38px;
+  border: 1px solid white;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.compare_btn:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#filter_way {
+  font-size: 26px;
+  font-weight: 900;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+.filter_ul_1 {
+  font-size: 16px;
+  font-weight: 900;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+
+.filter_ul_2 li {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter_ul_2 li:hover {
+  color: gray;
+}
+
+.clear_filter_condition:hover {
+  color: gray;
+}
+
+.clear_filter_condition {
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.clear_filter_condition span {
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  width: 100%;
+  height: 100px;
+  background-color: rgb(158, 158, 158);
+  padding-top: 50px;
+  text-align: center;
+  vertical-align: middle;
+}
+.footer_text {
+  font-size: 20px;
+}

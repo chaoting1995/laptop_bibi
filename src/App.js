@@ -7,7 +7,7 @@ import './App.css';
 // import ScrollToTop from 'Share/Components/ScrollToTop/ScrollToTop';
 
 // 引入 所有人的總元件
-// import IrisUserprofile from 'Iris/Pages/IrisUserprofile';
+import HomePage from './Pages/HomePage/HomePage';
 
 // 安裝react router => npm install react-router-dom
 // 引入react router => 用於制定路由
@@ -27,9 +27,9 @@ function App() {
         {/* <ScrollToTop> */}
         <Switch>
           {/* 放"page資料夾"內的元件 */}
-          {/* <Route exact path="/"> */}
-          {/* <ClaudiaFarmIndex /> */}
-          {/* </Route> */}
+          <Route exact path="/">
+            <HomePage />
+          </Route>
         </Switch>
         {/* </ScrollToTop>
         路由設定結束 */}
