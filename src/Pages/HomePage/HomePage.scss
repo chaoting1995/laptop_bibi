@@ -3,15 +3,17 @@
         } */
 
 /* 網站背景色 */
-body {
-  background-color: #e0e0e0;
-}
-
 /* header start*/
+.container {
+  max-width: 1024px;
+  margin: 0 auto 0 auto;
+}
 header {
   width: 100%;
   height: 70px;
   padding: 10px;
+  background-color: #faf;
+  box-sizing: border-box;
 }
 
 .header_line {
@@ -40,23 +42,27 @@ header {
 aside {
   width: 25%;
   margin-right: 20px;
-  /* background-color: #aaf; */
+  background-color: #aaf;
+  box-sizing: border-box;
 }
 
 main {
   width: 75%;
-  /* background-color: rgb(144, 151, 151); */
-  display: flex;
-  flex-wrap: wrap;
+  background-color: rgb(144, 151, 151);
+  // display: flex;
+  // flex-wrap: wrap;
+  // box-sizing: border-box;
   /* flex-direction: column-reverse; */
 }
 
 .card1 {
-  /* background-color: #faf; */
-  width: 270px;
-  height: 340px;
-  margin: 10px;
+  background-color: #faf;
+  width: 31%;
+  // height: 340px;
+  margin: 5px;
   cursor: pointer;
+  box-sizing: border-box;
+  display: inline-block;
 }
 
 .wrap_product_img {

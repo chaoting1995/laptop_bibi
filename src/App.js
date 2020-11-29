@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import 'normalize.css';
+
 // 引入 共用元件
 // import Navbar from 'Share/Components/NavBar/NavBar';
 // import Footer from 'Share/Components/Footer/Footer';
