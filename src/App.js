@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React from 'react';
 import 'normalize.css';
 
 // 引入 共用元件
@@ -10,6 +9,7 @@ import 'normalize.css';
 
 // 引入 所有人的總元件
 import HomePage from './Pages/HomePage/HomePage';
+import TestPage from './Pages/TestPage/TestPage';
 
 // 安裝react router => npm install react-router-dom
 // 引入react router => 用於制定路由
@@ -31,6 +31,9 @@ function App() {
           {/* 放"page資料夾"內的元件 */}
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route exact path="/test">
+            <TestPage />
           </Route>
         </Switch>
         {/* </ScrollToTop>
