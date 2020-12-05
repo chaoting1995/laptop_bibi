@@ -9,27 +9,45 @@ const Ul = styled.ul`
 `;
 
 const ProductListFilterWay = (props) => {
-  const { setViewFilter } = props;
+  const { setViewFilter, filterCondition, setFilterCondition } = props;
   //   setWeatherElement((prevState) => ({
   //     ...prevState,
   //     isLoading: true,
   //   }));
 
+  //整理成陣列的欄位名稱
+  const filterWayBrand = [
+    {
+      big_header: '品牌',
+      little_headers: [
+        '所有品牌',
+        'ASUS 華碩',
+        'acer 宏碁',
+        'Fujitsu 富士通',
+        'LG',
+        'HP',
+      ],
+    },
+  ];
   const filterWayColumn = [
     {
-      big_header: '硬碟',
-      little_headers: ['1TB SSD', '56G SSD', '512G SSD'],
+      big_header: ['價格', 'product_price'],
+      little_headers: [],
     },
     {
-      big_header: '處理器',
+      big_header: ['硬碟', 'product_HDD'],
+      little_headers: ['1TB SSD', '256G SSD', '512G SSD'],
+    },
+    {
+      big_header: ['處理器', 'product_CPU'],
       little_headers: ['i5', 'i7'],
     },
     {
-      big_header: '記憶體',
-      little_headers: ['16G', '16G'],
+      big_header: ['記憶體', 'product_DRAM'],
+      little_headers: ['8G', '16G'],
     },
     {
-      big_header: '重量',
+      big_header: ['重量', 'product_weight'],
       little_headers: [
         '1.1-1.29kg',
         '1.3-1.39kg',
@@ -39,10 +57,20 @@ const ProductListFilterWay = (props) => {
       ],
     },
     {
-      big_header: '電池容量',
+      big_header: ['電池容量', 'product_battery'],
       little_headers: ['25-30wh', '40-49wh', '50-59wh', '60-69wh', '70-79wh'],
     },
   ];
+
+  const onChangeFilterCondition = (key) => {
+    setFilterCondition({
+      ...filterCondition,
+      [key[0]]: {
+        ...filterCondition[key[0]],
+        [key[1]]: !filterCondition[key[0]][key[1]],
+      },
+    });
+  };
 
   return (
     <>
@@ -50,153 +78,52 @@ const ProductListFilterWay = (props) => {
         <h4 id="filter_way">篩選方式</h4>
         <hr />
         <h4 className="filter_ul_1 d-flex justify-content-between">
-          <span>系列</span>
+          <span>品牌</span>
         </h4>
         <Ul className="filter_ul_2">
-          <li onClick={() => setViewFilter('')}>所有</li>
-          <li onClick={() => setViewFilter('ASUS')}>ASUS 華碩</li>
-          <li onClick={() => setViewFilter('acer')}>acer 宏碁</li>
-          <li onClick={() => setViewFilter('Fujitsu')}>Fujitsu 富士通</li>
-          <li onClick={() => setViewFilter('LG')}>LG</li>
-          <li onClick={() => setViewFilter('HP')}>HP</li>
+          {filterWayBrand[0].little_headers.map((item, index) => {
+            return (
+              <li key={index} onClick={() => setViewFilter(item)}>
+                {item}
+              </li>
+            );
+          })}
         </Ul>
         <hr />
+
         {filterWayColumn.map((item, index) => {
+          const currentBigHeader = item.big_header;
           return (
-            <>
+            <div key={index}>
               <h4 className="filter_ul_1">
-                <span>{item.big_header}</span>
+                <span>{item.big_header[0]}</span>
               </h4>
               <Ul className="filter_ul_2">
                 {item.little_headers.map((item, index) => (
-                  <li>
+                  <li
+                    key={index}
+                    onClick={() => {
+                      onChangeFilterCondition([currentBigHeader[1], item]);
+                    }}
+                  >
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        // value={item}
+                        defaultChecked={
+                          filterCondition[currentBigHeader[1]][item]
+                        }
+                      />
                       {item}
                     </label>
                   </li>
                 ))}
               </Ul>
               <hr />
-            </>
+            </div>
           );
         })}
 
-        {/* <h4 className="filter_ul_1">
-          <span>硬碟</span>
-        </h4>
-        <Ul className="filter_ul_2">
-          <li>
-            <label>
-              <input type="checkbox" /> 1TB SSD
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 56G SSD
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 512G SSD
-            </label>
-          </li>
-        </Ul>
-        <hr />
-        <h4 className="filter_ul_1">
-          <span>處理器</span>
-        </h4>
-        <Ul className="filter_ul_2">
-          <li>
-            <label>
-              <input type="checkbox" /> i5
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> i7
-            </label>
-          </li>
-        </Ul>
-        <hr />
-        <h4 className="filter_ul_1">
-          <span>記憶體</span>
-        </h4>
-        <Ul className="filter_ul_2">
-          <li>
-            <label>
-              <input type="checkbox" /> 16G
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 8G
-            </label>
-          </li>
-        </Ul>
-        <hr />
-        <h4 className="filter_ul_1">
-          <span>重量</span>
-        </h4>
-        <Ul className="filter_ul_2">
-          <li>
-            <label>
-              <input type="checkbox" /> 1.1-1.29kg
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 1.3-1.39kg
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 1.4-1.5kg
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 1.7-1.79kg
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 1kg以下
-            </label>
-          </li>
-        </Ul>
-        <hr />
-        <h4 className="filter_ul_1">
-          <span>電池容量</span>
-        </h4>
-        <Ul className="filter_ul_2">
-          <li>
-            <label>
-              <input type="checkbox" /> 25-30wh
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 40-49wh
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 50-59wh
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 60-69wh
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" /> 70-79wh
-            </label>
-          </li>
-        </Ul>
-        <hr /> */}
         <h4 className="clear_filter_condition">
           清除篩選條件 <span>X</span>{' '}
         </h4>

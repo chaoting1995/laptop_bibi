@@ -18,9 +18,33 @@ import ProductFooter from '../../Components/ProductFooter';
 function HomePage(props) {
   //商品資料的狀態
   const [productData, setProductData] = useState([]);
-
-  //過濾用狀態
+  //過濾品牌
   const [viewFilter, setViewFilter] = useState('');
+  //過濾條件的勾選狀態
+  const [filterCondition, setFilterCondition] = useState({
+    product_HDD: {
+      '1TB SSD': false,
+      '56G SSD': false,
+      '512G SSD': false,
+    },
+    product_CPU: { i5: false, i7: false },
+    product_DRAM: { '8G': false, '16G': false },
+    product_battery: {
+      '25-30wh': false,
+      '40-49wh': false,
+      '50-59wh': false,
+      '60-69wh': false,
+      '70-79wh': false,
+    },
+    product_weight: {
+      '1.1-1.29kg': false,
+      '1.3-1.39kg': false,
+      '1.4-1.5kg': false,
+      '1.7-1.79kg': false,
+      '1kg以下': false,
+    },
+  });
+
   //--------------------樣式元件------------------------//
 
   //包Header、Wrap
@@ -40,10 +64,11 @@ function HomePage(props) {
     display: flex;｀
   `;
 
+  //控制商品清單的寬度比例
   const Main = styled.main`
     width: 75%;
   `;
-
+  //控制側欄的寬度比例
   const Aside = styled.aside`
     width: 25%;
     margin-right: 20px;
@@ -63,15 +88,14 @@ function HomePage(props) {
     });
     const response = await fetch(request);
     const data = await response.json();
-
-    console.log('data', data);
+    console.log('首次讀取商品資料表', data);
     setProductData(data);
   }
 
   // componentDidMount，一掛載就GET會員資料表
   useEffect(() => {
     getDataFromServer();
-    console.log('一掛載就讀取資料表');
+    console.log('一掛載就讀取商品資料表');
   }, []);
 
   return (
@@ -94,13 +118,23 @@ function HomePage(props) {
         {/* 篩選方式與商品列表，開始 */}
         <Row2>
           <Aside>
-            <ProductListFilterWay setViewFilter={setViewFilter} />
+            <ProductListFilterWay
+              setViewFilter={setViewFilter}
+              filterCondition={filterCondition}
+              setFilterCondition={setFilterCondition}
+            />
           </Aside>
           <Main>
-            <ProductListSortByPrice />
+            <ProductListSortByPrice
+              productData={productData}
+              setProductData={setProductData}
+              viewFilter={viewFilter}
+              setViewFilter={setViewFilter}
+            />
             <ProductListCards
               productData={productData}
               viewFilter={viewFilter}
+              filterCondition={filterCondition}
             />
             <ProductListPageBar />
           </Main>
