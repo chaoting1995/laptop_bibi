@@ -18,6 +18,26 @@ const ProductCard = styled.div`
 
 const ProductListCards = (props) => {
   const { productData, viewFilter, filterCondition } = props;
+
+  //重量轉成重量範圍的函式
+  const weight2weightRange = (val) => {
+    // let val = +w.replace('kg', '');
+    // console.log(val);
+    if (1 > val) {
+      return '1kg以下(不含1kg)';
+    } else if (val >= 1.0 && val < 1.2) {
+      return '1.0-1.19kg';
+    } else if (val >= 1.2 && val < 1.4) {
+      return '1.2-1.39kg';
+    } else if (val >= 1.4 && val < 1.6) {
+      return '1.4-1.59kg';
+    } else if (val >= 1.6) {
+      return '1.6kg以上';
+    } else {
+      return '';
+    }
+  };
+
   return (
     <>
       <Container>
@@ -59,13 +79,15 @@ const ProductListCards = (props) => {
           )
             return <></>;
           if (
-            Object.values(filterCondition.product_weight).includes(true) &&
-            !filterCondition.product_weight[item.product_weight]
+            Object.values(filterCondition.product_battery).includes(true) &&
+            !filterCondition.product_battery[item.product_battery]
           )
             return <></>;
           if (
-            Object.values(filterCondition.product_battery).includes(true) &&
-            !filterCondition.product_battery[item.product_battery]
+            Object.values(filterCondition.product_weight).includes(true) &&
+            !filterCondition.product_weight[
+              weight2weightRange(item.product_weight)
+            ]
           )
             return <></>;
 
@@ -88,6 +110,8 @@ const ProductListCards = (props) => {
               product_HDD: {item.product_HDD}
               <br />
               product_battery: {item.product_battery}
+              <br />
+              product_weight: {item.product_weight}
             </ProductCard>
           );
         })}

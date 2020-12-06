@@ -37,11 +37,11 @@ function HomePage(props) {
       '70-79wh': false,
     },
     product_weight: {
-      '1.1-1.29kg': false,
-      '1.3-1.39kg': false,
-      '1.4-1.5kg': false,
-      '1.7-1.79kg': false,
-      '1kg以下': false,
+      '1kg以下(不含1kg)': false,
+      '1.0-1.19kg': false,
+      '1.2-1.39kg': false,
+      '1.4-1.59kg': false,
+      '1.6kg以上': false,
     },
   });
 
@@ -128,8 +128,6 @@ function HomePage(props) {
             <ProductListSortByPrice
               productData={productData}
               setProductData={setProductData}
-              viewFilter={viewFilter}
-              setViewFilter={setViewFilter}
             />
             <ProductListCards
               productData={productData}

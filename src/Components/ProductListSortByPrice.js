@@ -16,7 +16,7 @@ const Container = styled.div`
   }
 `;
 const ProductListSortByPrice = (props) => {
-  const { productData, setProductData, viewFilter, setViewFilter } = props;
+  const { productData, setProductData } = props;
 
   //價格預設排列
   const priceDefault = () =>

@@ -49,11 +49,11 @@ const ProductListFilterWay = (props) => {
     {
       big_header: ['重量', 'product_weight'],
       little_headers: [
-        '1.1-1.29kg',
-        '1.3-1.39kg',
-        '1.4-1.5kg',
-        '1.7-1.79kg',
-        '1kg以下',
+        '1kg以下(不含1kg)',
+        '1.0-1.19kg',
+        '1.2-1.39kg',
+        '1.4-1.59kg',
+        '1.6kg以上',
       ],
     },
     {
