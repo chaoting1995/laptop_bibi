@@ -9,7 +9,6 @@ import 'normalize.css';
 
 // 引入 所有人的總元件
 import HomePage from './Pages/HomePage/HomePage';
-import AAA from './Components/AAA';
 
 // 安裝react router => npm install react-router-dom
 // 引入react router => 用於制定路由
@@ -33,7 +32,7 @@ function App() {
             <HomePage />
           </Route>
           <Route exact path="/test">
-            <AAA />
+            {/* <AAA /> */}
           </Route>
         </Switch>
         {/* </ScrollToTop>

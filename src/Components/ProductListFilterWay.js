@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import ProductListFWPriceSlider from './ProductListFWPriceSlider';
+import { ReactComponent as SearchIcon } from '../images/search_icon.svg';
+import $ from 'jquery';
 
 const Ul = styled.ul`
   ${'' /* display: none; */}
@@ -8,8 +11,59 @@ const Ul = styled.ul`
   padding: 0;
 `;
 
+const SearchBar = styled.div`
+  display: flex;
+  width: 100%;
+  input {
+    width: 180px;
+    height: 40px;
+    margin: 20px 0 20px 0;
+    padding-left: 15px;
+    box-sizing: border-box;
+    border: 0px;
+    outline: none;
+  }
+  button {
+    width: 40px;
+    height: 40px;
+    margin: 20px 0 20px 0;
+    box-sizing: border-box;
+    background-color: #507199;
+    border: 0px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover{
+      background-color: #385981;
+    }
+
+    }
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-left: 3px;
+      fill: #fff;
+    }
+  }
+`;
+// const SearchI = styled(SearchIcon)`
+//   fill: #fff;
+// `;
 const ProductListFilterWay = (props) => {
-  const { setViewFilter, filterCondition, setFilterCondition } = props;
+  // priceRange, setPriceRange，直接用{...props}傳
+  const {
+    searchString,
+    setSearchString,
+    setViewFilter,
+    filterCondition,
+    setFilterCondition,
+    getDataFromServer,
+    priceRangeB,
+    setPriceRangeB,
+  } = props;
+  const [priceRange, setPriceRange] = useState([]);
   //   setWeatherElement((prevState) => ({
   //     ...prevState,
   //     isLoading: true,
@@ -30,12 +84,12 @@ const ProductListFilterWay = (props) => {
     },
   ];
   const filterWayColumn = [
+    // {
+    //   big_header: ['價格', 'product_price'],
+    //   little_headers: [],
+    // },
     {
-      big_header: ['價格', 'product_price'],
-      little_headers: [],
-    },
-    {
-      big_header: ['硬碟', 'product_HDD'],
+      big_header: ['硬碟', 'product_storage'],
       little_headers: ['1TB SSD', '256G SSD', '512G SSD'],
     },
     {
@@ -43,7 +97,7 @@ const ProductListFilterWay = (props) => {
       little_headers: ['i5', 'i7'],
     },
     {
-      big_header: ['記憶體', 'product_DRAM'],
+      big_header: ['記憶體', 'product_memory'],
       little_headers: ['8G', '16G'],
     },
     {
@@ -77,6 +131,28 @@ const ProductListFilterWay = (props) => {
       <section>
         <h4 id="filter_way">篩選方式</h4>
         <hr />
+
+        <Ul className="filter_ul_2">
+          <SearchBar>
+            <input
+              type="text"
+              placeholder="品牌 型號"
+              value={searchString}
+              onChange={(e) => {
+                setSearchString(e.target.value);
+              }}
+              autoFocus
+            ></input>
+            <button
+              type="button"
+              onClick={() => getDataFromServer(searchString)}
+            >
+              <SearchIcon />
+            </button>
+          </SearchBar>
+        </Ul>
+        <hr />
+
         <h4 className="filter_ul_1 d-flex justify-content-between">
           <span>品牌</span>
         </h4>
@@ -91,6 +167,21 @@ const ProductListFilterWay = (props) => {
         </Ul>
         <hr />
 
+        <Ul className="filter_ul_2">
+          <h4 className="filter_ul_1 d-flex justify-content-between">
+            <span>價格</span>
+          </h4>
+          <ProductListFWPriceSlider
+            // {...props}
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+            // onChange={setPriceRangeB(priceRange)}
+          />
+        </Ul>
+        <button type="button" onClick={() => setPriceRangeB(priceRange)}>
+          aaa
+        </button>
+        <hr />
         {filterWayColumn.map((item, index) => {
           const currentBigHeader = item.big_header;
           return (
@@ -123,7 +214,6 @@ const ProductListFilterWay = (props) => {
             </div>
           );
         })}
-
         <h4 className="clear_filter_condition">
           清除篩選條件 <span>X</span>{' '}
         </h4>

@@ -18,17 +18,21 @@ import ProductFooter from '../../Components/ProductFooter';
 function HomePage(props) {
   //商品資料的狀態
   const [productData, setProductData] = useState([]);
-  //過濾品牌
+  //搜尋功能
+  const [searchString, setSearchString] = useState('');
+  //篩選品牌
   const [viewFilter, setViewFilter] = useState('');
-  //過濾條件的勾選狀態
+  //篩選價格
+  const [priceRangeB, setPriceRangeB] = useState([]);
+  //篩選條件的勾選狀態
   const [filterCondition, setFilterCondition] = useState({
-    product_HDD: {
+    product_storage: {
       '1TB SSD': false,
       '56G SSD': false,
       '512G SSD': false,
     },
     product_CPU: { i5: false, i7: false },
-    product_DRAM: { '8G': false, '16G': false },
+    product_memory: { '8G': false, '16G': false },
     product_battery: {
       '25-30wh': false,
       '40-49wh': false,
@@ -49,7 +53,7 @@ function HomePage(props) {
 
   //包Header、Wrap
   const Container = styled.div`
-    max-width: 1024px;
+    width: 1070px;
     margin: 0 auto 0 auto;
   `;
 
@@ -77,8 +81,8 @@ function HomePage(props) {
   `;
 
   //取得商品資料
-  async function getDataFromServer() {
-    const url = 'http://35.194.203.197/test.php';
+  async function getDataFromServer(string) {
+    const url = `http://35.194.203.197/test3.php?search=${string}`;
     const request = new Request(url, {
       method: 'GET',
       headers: new Headers({
@@ -94,10 +98,10 @@ function HomePage(props) {
 
   // componentDidMount，一掛載就GET會員資料表
   useEffect(() => {
-    getDataFromServer();
+    getDataFromServer('');
     console.log('一掛載就讀取商品資料表');
   }, []);
-
+  console.log('priceRangeB', priceRangeB);
   return (
     <>
       <Container>
@@ -119,9 +123,14 @@ function HomePage(props) {
         <Row2>
           <Aside>
             <ProductListFilterWay
+              searchString={searchString}
+              setSearchString={setSearchString}
               setViewFilter={setViewFilter}
+              priceRangeB={priceRangeB}
+              setPriceRangeB={setPriceRangeB}
               filterCondition={filterCondition}
               setFilterCondition={setFilterCondition}
+              // getDataFromServer={getDataFromServer}
             />
           </Aside>
           <Main>
@@ -131,6 +140,7 @@ function HomePage(props) {
             />
             <ProductListCards
               productData={productData}
+              // priceRange={priceRange}
               viewFilter={viewFilter}
               filterCondition={filterCondition}
             />

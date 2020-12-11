@@ -13,6 +13,9 @@ const Container = styled.div`
   span {
     margin-right: 10px;
     cursor: pointer;
+    &:hover {
+      font-weight: 600;
+    }
   }
 `;
 const ProductListSortByPrice = (props) => {
