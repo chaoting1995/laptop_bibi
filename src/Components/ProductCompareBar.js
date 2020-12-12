@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+// import { ReactComponent as SearchIcon } from '../images/search_icon.svg';
 
 const Container = styled.div`
   background-color: #efefef;
@@ -40,22 +41,22 @@ const Row2 = styled.div`
     cursor: pointer;
   }
 `;
-const ProductListSearchBar = (props) => {
+const ProductCompareBar = (props) => {
   return (
     <>
       <Container>
         <Row1>
-          <input type="text" placeholder="Add Device"></input>
-          <input type="text" placeholder="Add Device"></input>
-          <input type="text" placeholder="Add Device"></input>
-          <input type="text" placeholder="Add Device"></input>
+          <input type="text" placeholder="輸入品牌或型號"></input>
+          <input type="text" placeholder="輸入品牌或型號"></input>
+          <input type="text" placeholder="輸入品牌或型號"></input>
+          <input type="text" placeholder="輸入品牌或型號"></input>
         </Row1>
         <Row2>
-          <button>＋加入比較表</button>
+          <button>前往比較表</button>
         </Row2>
       </Container>
     </>
   );
 };
 
-export default ProductListSearchBar;
+export default ProductCompareBar;

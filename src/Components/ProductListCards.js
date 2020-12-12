@@ -1,22 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
+import QueueAnim from 'rc-queue-anim';
 //樣式
 const Container = styled.div`
   ${'' /* background-color: rgb(144, 151, 151); */}
   display: flex;
   flex-wrap: wrap;
   margin: -5px;
+  min-height: 360px;
+`;
+
+const QueueAnimA = styled(QueueAnim)`
+  width: 32%;
+  margin: 5px;
 `;
 
 const ProductCard = styled.div`
   ${({ index }) => index};
   ${'' /* background-color: #faf; */}
-  width: 32%;
-  margin: 5px;
+
   cursor: pointer;
   box-sizing: border-box;
-
+  margin-top: 15px;
+  height: 338px;
+  ${'' /* outline: 1px solid red; */}
+  position: relative;
   button {
     /* margin: auto; */
     /* text-align: center */
@@ -24,16 +32,24 @@ const ProductCard = styled.div`
     margin-top: -10px;
     width: 100%;
     height: 38px;
-    border: 1px solid white;
+    border: 0px;
     background-color: #fff;
     border-radius: 5px;
     outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    span {
+      font-size: 15px;
+    }
+    position: absolute;
+    bottom: 0;
   }
   button:hover {
     background-color: rgb(243, 243, 243);
   }
   button:active {
-    background-color: rgb(218, 218, 218);
+    background-color: rgb(165, 165, 165);
+    color: #fff;
   }
 `;
 
@@ -41,12 +57,12 @@ const ProductImg = styled.div`
   position: relative;
   overflow: hidden;
   transition: 0.5s;
-  height: 250px;
+  height: 170px;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     background-color: #fff;
     object-position: center center;
   }
@@ -56,7 +72,7 @@ const ProductImg = styled.div`
     margin: 0;
     padding-top: 15px;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
     text-align: center;
     vertical-align: middle;
     transition: 0.5s;
@@ -66,17 +82,22 @@ const ProductImg = styled.div`
     font-size: 16px;
   }
   &:hover div {
-    transform: translateY(-70px);
+    transform: translateY(-68px);
   }
 `;
 
-const ProductTitle = styled.p`
-  font-size: 20px;
+const ProductBrand = styled.div`
+  font-size: 22px;
   margin-top: 15px;
 `;
-const ProductPrice = styled.p`
-  font-size: 13px;
-  margin-top: -8px;
+const ProductType = styled.div`
+  font-size: 18px;
+  margin-top: 8px;
+  ${'' /* height: 40px; */}
+`;
+const ProductPrice = styled.div`
+  font-size: 16px;
+  margin-top: 10px;
   margin-bottom: 18px;
 `;
 
@@ -166,34 +187,22 @@ const ProductListCards = (props) => {
             return <></>;
           //秀出篩選後的商品清單
           return (
-            <ProductCard key={item.product_id}>
-              <ProductImg>
-                <img src={item.product_title_image} alt=""></img>
-                <div>
-                  <h1>快速瀏覽</h1>
-                </div>
-              </ProductImg>
-              <ProductTitle>
-                {/* {item.product_brand} <br /> */}
-                {item.product_name}
-              </ProductTitle>
-              <ProductPrice>NT${item.product_price}</ProductPrice>
-              <button type="button" class="compare_btn">
-                <span class="add">
-                  <svg
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    width="16"
-                    height="16"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"
-                    ></path>
-                  </svg>
-                </span>
-              </button>
-            </ProductCard>
+            <QueueAnimA delay={50} className="queue-simple">
+              <ProductCard key={item.product_id}>
+                <ProductImg>
+                  <img src={item.product_title_image} alt=""></img>
+                  <div>
+                    <h1>快速瀏覽</h1>
+                  </div>
+                </ProductImg>
+                <ProductBrand>{item.product_brand}</ProductBrand>
+                <ProductType>{item.product_name}</ProductType>
+                <ProductPrice>NT${item.product_price}</ProductPrice>
+                <button type="button" className="compare_btn">
+                  <span>+</span>加入比較表
+                </button>
+              </ProductCard>
+            </QueueAnimA>
           );
         })}
       </Container>

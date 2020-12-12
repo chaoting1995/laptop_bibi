@@ -8,7 +8,7 @@ import ProductListHeader from '../../Components/ProductListHeader';
 
 import ProductListFilterWay from '../../Components/ProductListFilterWay';
 
-import ProductListSearchBar from '../../Components/ProductListSearchBar';
+import ProductListSearchBar from '../../Components/ProductCompareBar';
 import ProductListSortByPrice from '../../Components/ProductListSortByPrice';
 import ProductListCards from '../../Components/ProductListCards';
 import ProductListPageBar from '../../Components/ProductListPageBar';
@@ -23,7 +23,9 @@ function HomePage(props) {
   //篩選品牌
   const [viewFilter, setViewFilter] = useState('');
   //篩選價格
-  const [priceRangeB, setPriceRangeB] = useState([]);
+  const [priceStart, setPriceStart] = useState('');
+  const [priceEnd, setPriceEnd] = useState('');
+
   //篩選條件的勾選狀態
   const [filterCondition, setFilterCondition] = useState({
     product_storage: {
@@ -76,13 +78,13 @@ function HomePage(props) {
   const Aside = styled.aside`
     width: 25%;
     margin-right: 20px;
-    background-color: #aaf;
+    ${'' /* background-color: #aaf; */}
     box-sizing: border-box;
   `;
 
   //取得商品資料
   async function getDataFromServer(string) {
-    const url = `http://35.194.203.197/test3.php?search=${string}`;
+    const url = `http://35.194.203.197/search_name.php?search=${string}`;
     const request = new Request(url, {
       method: 'GET',
       headers: new Headers({
@@ -101,15 +103,13 @@ function HomePage(props) {
     getDataFromServer('');
     console.log('一掛載就讀取商品資料表');
   }, []);
-  console.log('priceRangeB', priceRangeB);
+
   return (
     <>
       <Container>
         {/* 頁頭，開始 */}
         <ProductListHeader />
         {/* 頁頭，結束 */}
-
-        {/* <div className="container-fluid d-flex justify-content-center"> */}
 
         {/* 搜尋列，開始 */}
         <Row1>
@@ -126,11 +126,11 @@ function HomePage(props) {
               searchString={searchString}
               setSearchString={setSearchString}
               setViewFilter={setViewFilter}
-              priceRangeB={priceRangeB}
-              setPriceRangeB={setPriceRangeB}
+              setPriceStart={setPriceStart}
+              setPriceEnd={setPriceEnd}
               filterCondition={filterCondition}
               setFilterCondition={setFilterCondition}
-              // getDataFromServer={getDataFromServer}
+              getDataFromServer={getDataFromServer}
             />
           </Aside>
           <Main>

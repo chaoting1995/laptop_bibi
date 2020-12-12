@@ -1,21 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import ProductListFWPriceSlider from './ProductListFWPriceSlider';
 import { ReactComponent as SearchIcon } from '../images/search_icon.svg';
 import $ from 'jquery';
+
+// const FWBigHeader = styled.div`
+//   font-size: 28px;
+//   font-weight: 500;
+//   margin-bottom: 20px;
+// `;
+
+const FWSmallHeader = styled.div`
+  font-size: 17px;
+  font-weight: 900;
+  padding: 25px 0;
+  margin: -20px 0;
+  cursor: pointer;
+`;
 
 const Ul = styled.ul`
   ${'' /* display: none; */}
   list-style: none;
   margin: 0;
   padding: 0;
+  li {
+    font-size: 15px;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  li:hover {
+    color: gray;
+  }
 `;
 
 const SearchBar = styled.div`
   display: flex;
   width: 100%;
+  margin-top: -20px;
   input {
-    width: 180px;
+    width: 220px;
     height: 40px;
     margin: 20px 0 20px 0;
     padding-left: 15px;
@@ -48,6 +71,7 @@ const SearchBar = styled.div`
     }
   }
 `;
+
 // const SearchI = styled(SearchIcon)`
 //   fill: #fff;
 // `;
@@ -60,10 +84,12 @@ const ProductListFilterWay = (props) => {
     filterCondition,
     setFilterCondition,
     getDataFromServer,
-    priceRangeB,
-    setPriceRangeB,
+    setPriceStart,
+    setPriceEnd,
   } = props;
+
   const [priceRange, setPriceRange] = useState([]);
+  // const [priceRange, setPriceRange] = useState([10000, 80000]);
   //   setWeatherElement((prevState) => ({
   //     ...prevState,
   //     isLoading: true,
@@ -74,7 +100,7 @@ const ProductListFilterWay = (props) => {
     {
       big_header: '品牌',
       little_headers: [
-        '所有品牌',
+        '所有',
         'ASUS 華碩',
         'acer 宏碁',
         'Fujitsu 富士通',
@@ -126,35 +152,36 @@ const ProductListFilterWay = (props) => {
     });
   };
 
+  // 篩選方式的收闔清單
+  useEffect(() => {
+    $('.filter_ul_1').on('click', function () {
+      $(this).next().slideToggle('fast');
+    });
+  }, []);
+
   return (
     <>
       <section>
-        <h4 id="filter_way">篩選方式</h4>
-        <hr />
+        {/* <FWBigHeader>篩選方式</FWBigHeader>
+        <hr /> */}
+        <SearchBar>
+          <input
+            type="text"
+            placeholder="輸入品牌或型號"
+            value={searchString}
+            onChange={(e) => {
+              setSearchString(e.target.value);
+            }}
+            autoFocus
+          ></input>
+          <button type="button" onClick={() => getDataFromServer(searchString)}>
+            <SearchIcon />
+          </button>
+        </SearchBar>
 
-        <Ul className="filter_ul_2">
-          <SearchBar>
-            <input
-              type="text"
-              placeholder="品牌 型號"
-              value={searchString}
-              onChange={(e) => {
-                setSearchString(e.target.value);
-              }}
-              autoFocus
-            ></input>
-            <button
-              type="button"
-              onClick={() => getDataFromServer(searchString)}
-            >
-              <SearchIcon />
-            </button>
-          </SearchBar>
-        </Ul>
         <hr />
-
         <h4 className="filter_ul_1 d-flex justify-content-between">
-          <span>品牌</span>
+          <FWSmallHeader>品牌</FWSmallHeader>
         </h4>
         <Ul className="filter_ul_2">
           {filterWayBrand[0].little_headers.map((item, index) => {
@@ -167,27 +194,27 @@ const ProductListFilterWay = (props) => {
         </Ul>
         <hr />
 
+        <h4 className="filter_ul_1 d-flex justify-content-between">
+          <FWSmallHeader>價格</FWSmallHeader>
+        </h4>
         <Ul className="filter_ul_2">
-          <h4 className="filter_ul_1 d-flex justify-content-between">
-            <span>價格</span>
-          </h4>
           <ProductListFWPriceSlider
-            // {...props}
             priceRange={priceRange}
             setPriceRange={setPriceRange}
-            // onChange={setPriceRangeB(priceRange)}
+            setPriceStart={setPriceStart}
+            setPriceEnd={setPriceEnd}
           />
         </Ul>
-        <button type="button" onClick={() => setPriceRangeB(priceRange)}>
+        {/* <button type="button" onClick={() => setPriceRangeB(priceRange)}>
           aaa
-        </button>
+        </button> */}
         <hr />
         {filterWayColumn.map((item, index) => {
           const currentBigHeader = item.big_header;
           return (
             <div key={index}>
               <h4 className="filter_ul_1">
-                <span>{item.big_header[0]}</span>
+                <FWSmallHeader>{item.big_header[0]}</FWSmallHeader>
               </h4>
               <Ul className="filter_ul_2">
                 {item.little_headers.map((item, index) => (
