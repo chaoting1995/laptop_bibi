@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 //-----------------------匯入子元件---------------------------//
-import ProductListFWPriceSlider from './ProductListFilterWay/ProductListFWPriceSlider';
-import ProductListFWSearchInput from './ProductListFilterWay/ProductListFWSearchInput';
+import SearchInput from './ProductListFilterWay/FilterWay1SearchInput';
+import BrandItems from './ProductListFilterWay/FilterWay2BrandItems';
+import PriceSlider from './ProductListFilterWay/FilterWay3PriceSlider';
 // import $ from 'jquery';
 
 //折疊面板的引入
@@ -14,13 +15,13 @@ import AccordionSummaryA from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+//-----------------------style---------------------------//
 // const FWBigHeader = styled.div`
 //   font-size: 28px;
 //   font-weight: 500;
 //   margin-bottom: 20px;
 // `;
 
-//-----------------------style---------------------------//
 const FWSmallHeader = styled.div`
   font-size: 17px;
   font-weight: 900;
@@ -97,56 +98,14 @@ const AccordionDetails = withStyles((theme) => ({
 
 //-----------------------component--------------------------//
 const ProductListFilterWay = (props) => {
-  //--------------------建立狀態-----------------------//
-  //篩選價格
-  const [priceRange, setPriceRange] = useState([10000, 80000]);
-  console.log('priceRange', priceRange);
-  //--------------------傳入狀態-----------------------//
-  // priceRange, setPriceRange，直接用{...props}傳
+  //-----------------------props--------------------------//
   const {
-    setViewFilter,
     filterCondition,
     setFilterCondition,
     setFrontPrice,
     setBackPrice,
-    getProductDataInSetState,
   } = props;
 
-  // const [priceRange, setPriceRange] = useState([10000, 80000])
-
-  //集合成陣列的欄位名稱
-  const filterWayBrand = {
-    big_header: '品牌',
-    little_headers: [
-      '所有',
-      'ASUS 華碩',
-      'acer 宏碁',
-      'Apple 蘋果',
-      'MSI 微星',
-      'Lenovo 聯想',
-      'HP 惠普',
-      'Microsoft 微軟',
-      'GIGABYTE 技嘉',
-      'Fujitsu 富士通',
-      'LG',
-    ],
-  };
-  const filterBrand = {
-    big_header: '品牌',
-    little_headers: {
-      所有: true,
-      'ASUS 華碩': false,
-      'acer 宏碁': false,
-      'Apple 蘋果': false,
-      'MSI 微星': false,
-      'Lenovo 聯想': false,
-      'HP 惠普': false,
-      'Microsoft 微軟': false,
-      'GIGABYTE 技嘉': false,
-      'Fujitsu 富士通': false,
-      LG: false,
-    },
-  };
   const filterWayColumn = [
     // {
     //   big_header: ['價格', 'product_price'],
@@ -200,12 +159,13 @@ const ProductListFilterWay = (props) => {
   //折疊面板
   const classes = useStyles();
 
+  //------------------------JSX-------------------------//
   return (
     <>
       <section>
         {/* <FWBigHeader>篩選方式</FWBigHeader>
         <hr /> */}
-        <ProductListFWSearchInput {...props} />
+        <SearchInput {...props} />
         <hr />
         <div className={classes.root}>
           <Accordion>
@@ -218,14 +178,8 @@ const ProductListFilterWay = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                <Ul className="filter_ul_2">
-                  {filterWayBrand.little_headers.map((item, index) => {
-                    return (
-                      <li key={index} onClick={() => setViewFilter(item)}>
-                        {item}
-                      </li>
-                    );
-                  })}
+                <Ul>
+                  <BrandItems {...props} />
                 </Ul>
               </Typography>
             </AccordionDetails>
@@ -243,23 +197,7 @@ const ProductListFilterWay = (props) => {
             <AccordionDetails>
               <Typography> */}
         <Ul className="filter_ul_2">
-          <ProductListFWPriceSlider
-            priceRange={priceRange}
-            setPriceRange={setPriceRange}
-          />
-          <div className="d-flex justify-content-center mt-4">
-            <button
-              className="btn re-btn btn-rounded re-btn-border-color"
-              onClick={() => {
-                // setFrontPrice(priceRange[0]);
-                // setBackPrice(priceRange[1]);
-                console.log('setFrontPrice', priceRange[0]);
-                console.log('setBackPrice', priceRange[1]);
-              }}
-            >
-              查看商品
-            </button>
-          </div>
+          <PriceSlider {...props} />
         </Ul>
         {/* </Typography>
             </AccordionDetails>

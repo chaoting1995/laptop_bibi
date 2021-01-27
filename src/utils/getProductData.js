@@ -1,5 +1,6 @@
 export function getProductData({
   search,
+  filterBrand,
   frontPrice,
   backPrice,
   sort,
@@ -10,6 +11,7 @@ export function getProductData({
   // if (mainCate) query += `&mainCate=${mainCate}`;
   // if (detailCate) query += `&detailCate=${detailCate}`;
   if (search) query += `search=${search}`;
+  if (filterBrand) query += `filterBrand=${filterBrand}`;
   if (sort) query += `&sort=${sort}`;
   if (frontPrice || backPrice)
     query += `&frontPrice=${frontPrice}&backPrice=${backPrice}`;

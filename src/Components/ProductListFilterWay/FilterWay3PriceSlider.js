@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+
+//----------------------material-ui----------------------//
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 // import { Slider } from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
@@ -6,6 +8,7 @@ import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 import PropTypes from 'prop-types';
 
+//-------------------------style-------------------------//
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: 260,
@@ -94,32 +97,43 @@ const IOSSlider = withStyles({
   // focusVisible: { background: '#505050' },
 })(Slider);
 
-export default function CustomizedSlider(props) {
-  // export default function ProductListFWPriceSlider(props) {
-  const { priceRange, setPriceRange } = props;
+//-------------------------style-------------------------//
+function CustomizedSlider(props) {
+  const [priceRangeNum, setPriceRangeNum] = useState([10000, 80000]);
+  const { setPriceRange } = props;
   const classes = useStyles();
 
   const handleChange = (event, newValue) => {
-    setPriceRange(newValue);
+    setPriceRangeNum(newValue);
+    // console.log('priceRangeNum', priceRangeNum);
   };
-  useEffect(() => {
-    // console.log('val',rangeValue)
-  }, [priceRange]);
-  return (
-    <div className={classes.root}>
-      <IOSSlider
-        aria-label="ios slider"
-        defaultValue={[10000, 80000]}
-        valueLabelDisplay="on"
-        // min={0}
-        max={100000}
-        onChange={handleChange}
-        step={100}
-        // value={priceRange}
-        // onDragStop={ (e) => this.props.update(e, control.id, this.val)}
-      />
 
-      <div className={classes.margin} />
-    </div>
+  return (
+    <>
+      <div className={classes.root}>
+        <IOSSlider
+          aria-label="ios slider"
+          defaultValue={[10000, 80000]}
+          valueLabelDisplay="on"
+          // min={0}
+          max={100000}
+          onChange={handleChange}
+          step={100}
+          // value={priceRange}
+          // onDragStop={ (e) => this.props.update(e, control.id, this.val)}
+        />
+
+        <div className={classes.margin} />
+      </div>
+      <div className="d-flex justify-content-center mt-4">
+        <button
+          className="btn re-btn btn-rounded re-btn-border-color"
+          onClick={() => setPriceRange(priceRangeNum)}
+        >
+          查看商品
+        </button>
+      </div>
+    </>
   );
 }
+export default CustomizedSlider;

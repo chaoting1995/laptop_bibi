@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+//-----------------------匯入icon--------------------------//
 import { ReactComponent as SearchIcon } from '../../images/search_icon.svg';
-// import $ from 'jquery';
-
 //-----------------------style---------------------------//
 const SearchBar = styled.div`
   display: flex;
@@ -42,14 +41,10 @@ const SearchBar = styled.div`
   }
 `;
 //-----------------------component---------------------------//
-
 const ProductListFWSearchInput = (props) => {
-  const { handleSetSearch } = props;
+  //---------------------state & props-----------------------//
+  const { setSearch } = props;
   const [searchText, setSearchText] = useState('');
-  // const searchSubmit = (e) => {
-  //   let searchText = e.target.closest('.css-1exdyj0').querySelector('input');
-  //   setSearch(searchText.value);
-  // };
 
   return (
     <>
@@ -59,14 +54,11 @@ const ProductListFWSearchInput = (props) => {
           placeholder="輸入品牌或型號"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-        ></input>
-        <button
-          type="button"
-          onClick={() => handleSetSearch(searchText)}
           onKeyPress={(e) => {
-            if (e.key === 'Enter' && searchText) handleSetSearch(searchText);
+            if (e.key === 'Enter' && searchText) setSearch(e.target.value);
           }}
-        >
+        ></input>
+        <button type="button" onClick={() => setSearch(searchText)}>
           <SearchIcon />
         </button>
       </SearchBar>

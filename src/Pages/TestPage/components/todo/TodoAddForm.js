@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 function TodoAddForm(props) {
   // 解構賦值的語法，先把要用的變數值從props解出來
-  const { todoInput, setTodoInput, todos, setTodos } = props
+  const { todoInput, setTodoInput, todos, setTodos } = props;
 
   return (
     <>
@@ -19,21 +19,21 @@ function TodoAddForm(props) {
               text: e.target.value,
               completed: false,
               edited: false,
-            }
+            };
 
             // 建立新的陣列(合併原本的todos陣列中的值)
-            const newTodos = [newItem, ...todos]
+            const newTodos = [newItem, ...todos];
 
             // 設定todos狀態值
-            setTodos(newTodos)
+            setTodos(newTodos);
 
             // 清空輸入框
-            setTodoInput('')
+            setTodoInput('');
           }
         }}
       />
     </>
-  )
+  );
 }
 
-export default TodoAddForm
+export default TodoAddForm;

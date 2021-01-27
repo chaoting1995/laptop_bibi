@@ -57,10 +57,12 @@ function HomePage(props) {
   //搜尋品牌或型號
   const [search, setSearch] = useState('');
   //篩選品牌
-  const [viewFilter, setViewFilter] = useState('');
+  const [filterBrand, setFilterBrand] = useState('');
   //價格篩選
   const [frontPrice, setFrontPrice] = useState('');
   const [backPrice, setBackPrice] = useState('');
+  const [priceRange, setPriceRange] = useState([]);
+
   //價格排序
   const [sort, setSort] = useState(0);
   //清空篩選條件
@@ -96,22 +98,19 @@ function HomePage(props) {
       '1.6kg以上': false,
     },
   });
-  //---------------授權子元件改變state的函式-------------------//
-  const handleSetSearch = (data) => {
-    setSearch(data);
-  };
   //--------------------取得商品資料------------------------//
   const getProductDataInSetState = useCallback(async () => {
     const data = await getProductData({
       search,
-      frontPrice,
-      backPrice,
+      filterBrand,
+      frontPrice: priceRange[0],
+      backPrice: priceRange[1],
       sort,
       queryReset,
     });
     setProductData(data);
     // console.log('取商品資料', data);
-  }, [search, frontPrice, backPrice, sort, queryReset]);
+  }, [search, filterBrand, priceRange, sort, queryReset]);
   //
 
   // componentDidMount，一掛載就GET資料
@@ -136,13 +135,11 @@ function HomePage(props) {
         <Row2>
           <Aside>
             <ProductListFilterWay
-              search={search}
-              handleSetSearch={handleSetSearch}
-              // priceRange={priceRange}
-              // setPriceRange={setPriceRange}
-              setBackPrice={setBackPrice}
-              setFrontPrice={setFrontPrice}
-              setViewFilter={setViewFilter}
+              setSearch={setSearch}
+              setFilterBrand={setFilterBrand}
+              setPriceRange={setPriceRange}
+              // setBackPrice={setBackPrice}
+              // setFrontPrice={setFrontPrice}
               filterCondition={filterCondition}
               setFilterCondition={setFilterCondition}
               getProductDataInSetState={getProductDataInSetState}
@@ -157,7 +154,6 @@ function HomePage(props) {
               productData={productData}
               // setBackPrice={setBackPrice}
               // setFrontPrice={setFrontPrice}
-              viewFilter={viewFilter}
               filterCondition={filterCondition}
             />
             <ProductListPageBar />

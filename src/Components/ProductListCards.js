@@ -102,31 +102,11 @@ const ProductPrice = styled.div`
 `;
 
 const ProductListCards = (props) => {
-  const { productData, viewFilter, filterCondition } = props;
+  const { productData, filterCondition } = props;
   return (
     <>
       <Container>
         {productData.map((item, index) => {
-          //篩選品牌
-          if (viewFilter === 'ASUS 華碩' && item.product_brand !== 'ASUS')
-            return <></>;
-          if (viewFilter === 'acer 宏碁' && item.product_brand !== 'acer')
-            return <></>;
-          if (
-            viewFilter === 'Fujitsu 富士通' &&
-            item.product_brand !== 'Fujitsu'
-          )
-            return <></>;
-          if (viewFilter === 'LG' && item.product_brand !== viewFilter)
-            return <></>;
-          if (
-            viewFilter === 'HP' &&
-            item.product_brand !== viewFilter &&
-            item.product_brand !== 'hp'
-          )
-            //權宜之計
-            return <></>;
-
           //判斷價格是否在篩選範圍的函式
           //const priceInPriceRange = (p) =>
           //p >= priceRange[0] && p <= priceRange[1];
