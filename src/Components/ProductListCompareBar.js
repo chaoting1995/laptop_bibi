@@ -41,7 +41,7 @@ const Row2 = styled.div`
     cursor: pointer;
   }
 `;
-const ProductCompareBar = (props) => {
+const ProductListCompareBar = (props) => {
   return (
     <>
       <Container>
@@ -59,4 +59,4 @@ const ProductCompareBar = (props) => {
   );
 };
 
-export default ProductCompareBar;
+export default ProductListCompareBar;

@@ -102,8 +102,7 @@ const ProductPrice = styled.div`
 `;
 
 const ProductListCards = (props) => {
-  const { productData, viewFilter, priceRange, filterCondition } = props;
-  console.log('priceRange in cards', priceRange);
+  const { productData, viewFilter, filterCondition } = props;
   return (
     <>
       <Container>

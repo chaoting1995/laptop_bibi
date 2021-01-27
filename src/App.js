@@ -4,19 +4,19 @@ import 'normalize.css';
 // 引入 共用元件
 // import Navbar from 'Share/Components/NavBar/NavBar';
 // import Footer from 'Share/Components/Footer/Footer';
-//加入 ScrollToTop
+// 加入 ScrollToTop
 // import ScrollToTop from 'Share/Components/ScrollToTop/ScrollToTop';
 
 // 引入 所有人的總元件
-import HomePage from './Pages/HomePage/HomePage';
-import AAA from './Pages/HomePage/AAA';
+import HomePage from './Pages/HomePage';
+import AAA from './Pages/SimpleAccordion';
 
 // 安裝react router => npm install react-router-dom
 // 引入react router => 用於制定路由
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // 路由表
-function App() {
+function SimpleAccordion() {
   return (
     // <Router>元件一定要放在最外層
     <Router>
@@ -47,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default SimpleAccordion;

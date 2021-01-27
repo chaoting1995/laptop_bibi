@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import ProductListFWPriceSlider from './ProductListFWPriceSlider';
-import { ReactComponent as SearchIcon } from '../images/search_icon.svg';
-import $ from 'jquery';
+
+//-----------------------匯入子元件---------------------------//
+import ProductListFWPriceSlider from './ProductListFilterWay/ProductListFWPriceSlider';
+import ProductListFWSearchInput from './ProductListFilterWay/ProductListFWSearchInput';
+// import $ from 'jquery';
+
+//折疊面板的引入
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import AccordionA from '@material-ui/core/Accordion';
+import AccordionDetailsA from '@material-ui/core/AccordionDetails';
+import AccordionSummaryA from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 // const FWBigHeader = styled.div`
 //   font-size: 28px;
@@ -10,6 +20,7 @@ import $ from 'jquery';
 //   margin-bottom: 20px;
 // `;
 
+//-----------------------style---------------------------//
 const FWSmallHeader = styled.div`
   font-size: 17px;
   font-weight: 900;
@@ -27,88 +38,115 @@ const Ul = styled.ul`
     font-size: 15px;
     line-height: 1.5;
     cursor: pointer;
+    margin-bottom: 5px;
   }
   li:hover {
     color: gray;
   }
-`;
-
-const SearchBar = styled.div`
-  display: flex;
-  width: 100%;
-  margin-top: -20px;
-  input {
-    width: 220px;
-    height: 40px;
-    margin: 20px 0 20px 0;
-    padding-left: 15px;
-    box-sizing: border-box;
-    border: 0px;
-    outline: none;
-  }
-  button {
-    width: 40px;
-    height: 40px;
-    margin: 20px 0 20px 0;
-    box-sizing: border-box;
-    background-color: #507199;
-    border: 0px;
-    outline: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    &:hover{
-      background-color: #385981;
-    }
-
-    }
-    svg {
-      width: 20px;
-      height: 20px;
-      margin-left: 3px;
-      fill: #fff;
-    }
+  input[type='checkbox'] {
+    margin-right: 5px;
   }
 `;
 
-// const SearchI = styled(SearchIcon)`
-//   fill: #fff;
-// `;
+//折疊面板的樣式設定
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: '-9px 0',
+    padding: '0',
+    width: '100%',
+  },
+  heading: {
+    margin: '-10px 0',
+    padding: '0',
+  },
+}));
+
+const Accordion = withStyles({
+  root: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    // borderBottom: '1px solid rgba(0, 0, 0, .2)',
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: '0',
+    },
+  },
+  expanded: {},
+})(AccordionA);
+
+const AccordionSummary = withStyles({
+  root: {
+    padding: '0',
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(AccordionSummaryA);
+
+const AccordionDetails = withStyles((theme) => ({
+  root: {
+    // padding: theme.spacing(2),
+    padding: '0 0 10px 0',
+  },
+}))(AccordionDetailsA);
+
+//-----------------------component--------------------------//
 const ProductListFilterWay = (props) => {
+  //--------------------建立狀態-----------------------//
+  //篩選價格
+  const [priceRange, setPriceRange] = useState([10000, 80000]);
+  console.log('priceRange', priceRange);
+  //--------------------傳入狀態-----------------------//
   // priceRange, setPriceRange，直接用{...props}傳
   const {
-    searchString,
-    setSearchString,
     setViewFilter,
     filterCondition,
     setFilterCondition,
-    getDataFromServer,
-    setPriceStart,
-    setPriceEnd,
+    setFrontPrice,
+    setBackPrice,
+    getProductDataInSetState,
   } = props;
 
-  const [priceRange, setPriceRange] = useState([]);
-  // const [priceRange, setPriceRange] = useState([10000, 80000]);
-  //   setWeatherElement((prevState) => ({
-  //     ...prevState,
-  //     isLoading: true,
-  //   }));
+  // const [priceRange, setPriceRange] = useState([10000, 80000])
 
-  //整理成陣列的欄位名稱
-  const filterWayBrand = [
-    {
-      big_header: '品牌',
-      little_headers: [
-        '所有',
-        'ASUS 華碩',
-        'acer 宏碁',
-        'Fujitsu 富士通',
-        'LG',
-        'HP',
-      ],
+  //集合成陣列的欄位名稱
+  const filterWayBrand = {
+    big_header: '品牌',
+    little_headers: [
+      '所有',
+      'ASUS 華碩',
+      'acer 宏碁',
+      'Apple 蘋果',
+      'MSI 微星',
+      'Lenovo 聯想',
+      'HP 惠普',
+      'Microsoft 微軟',
+      'GIGABYTE 技嘉',
+      'Fujitsu 富士通',
+      'LG',
+    ],
+  };
+  const filterBrand = {
+    big_header: '品牌',
+    little_headers: {
+      所有: true,
+      'ASUS 華碩': false,
+      'acer 宏碁': false,
+      'Apple 蘋果': false,
+      'MSI 微星': false,
+      'Lenovo 聯想': false,
+      'HP 惠普': false,
+      'Microsoft 微軟': false,
+      'GIGABYTE 技嘉': false,
+      'Fujitsu 富士通': false,
+      LG: false,
     },
-  ];
+  };
   const filterWayColumn = [
     // {
     //   big_header: ['價格', 'product_price'],
@@ -116,7 +154,7 @@ const ProductListFilterWay = (props) => {
     // },
     {
       big_header: ['硬碟', 'product_storage'],
-      little_headers: ['1TB SSD', '256G SSD', '512G SSD'],
+      little_headers: ['1 TB  SSD', '256 GB  SSD', '512 GB  SSD'],
     },
     {
       big_header: ['處理器', 'product_CPU'],
@@ -152,62 +190,81 @@ const ProductListFilterWay = (props) => {
     });
   };
 
-  // 篩選方式的收闔清單
-  useEffect(() => {
-    $('.filter_ul_1').on('click', function () {
-      $(this).next().slideToggle('fast');
-    });
-  }, []);
+  // // 篩選方式的收闔清單
+  // useEffect(() => {
+  //   $('.filter_ul_1').on('click', function () {
+  //     $(this).next().slideToggle('fast');
+  //   });
+  // }, []);
+
+  //折疊面板
+  const classes = useStyles();
 
   return (
     <>
       <section>
         {/* <FWBigHeader>篩選方式</FWBigHeader>
         <hr /> */}
-        <SearchBar>
-          <input
-            type="text"
-            placeholder="輸入品牌或型號"
-            value={searchString}
-            onChange={(e) => {
-              setSearchString(e.target.value);
-            }}
-            autoFocus
-          ></input>
-          <button type="button" onClick={() => getDataFromServer(searchString)}>
-            <SearchIcon />
-          </button>
-        </SearchBar>
-
+        <ProductListFWSearchInput {...props} />
         <hr />
-        <h4 className="filter_ul_1 d-flex justify-content-between">
-          <FWSmallHeader>品牌</FWSmallHeader>
-        </h4>
-        <Ul className="filter_ul_2">
-          {filterWayBrand[0].little_headers.map((item, index) => {
-            return (
-              <li key={index} onClick={() => setViewFilter(item)}>
-                {item}
-              </li>
-            );
-          })}
-        </Ul>
+        <div className={classes.root}>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>
+                <h4 className="filter_ul_1 d-flex justify-content-between">
+                  <FWSmallHeader>品牌</FWSmallHeader>
+                </h4>
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                <Ul className="filter_ul_2">
+                  {filterWayBrand.little_headers.map((item, index) => {
+                    return (
+                      <li key={index} onClick={() => setViewFilter(item)}>
+                        {item}
+                      </li>
+                    );
+                  })}
+                </Ul>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </div>
         <hr />
-
+        {/* <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}> */}
         <h4 className="filter_ul_1 d-flex justify-content-between">
           <FWSmallHeader>價格</FWSmallHeader>
         </h4>
+        {/* </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography> */}
         <Ul className="filter_ul_2">
           <ProductListFWPriceSlider
             priceRange={priceRange}
             setPriceRange={setPriceRange}
-            setPriceStart={setPriceStart}
-            setPriceEnd={setPriceEnd}
           />
+          <div className="d-flex justify-content-center mt-4">
+            <button
+              className="btn re-btn btn-rounded re-btn-border-color"
+              onClick={() => {
+                // setFrontPrice(priceRange[0]);
+                // setBackPrice(priceRange[1]);
+                console.log('setFrontPrice', priceRange[0]);
+                console.log('setBackPrice', priceRange[1]);
+              }}
+            >
+              查看商品
+            </button>
+          </div>
         </Ul>
-        {/* <button type="button" onClick={() => setPriceRangeB(priceRange)}>
-          aaa
-        </button> */}
+        {/* </Typography>
+            </AccordionDetails>
+          </Accordion> */}
+        {/* </div> */}
         <hr />
         {filterWayColumn.map((item, index) => {
           const currentBigHeader = item.big_header;
