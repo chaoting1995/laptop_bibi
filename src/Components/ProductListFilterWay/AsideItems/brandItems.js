@@ -15,5 +15,10 @@ export const brandItems = {
     ['LG', 9],
     ['Huawei 華為', 10],
     ['Razer 雷蛇', 11],
+    ['Dell 戴爾', 12],
+    ['Nintendo 任天堂', 13],
+    ['Samsung 三星', 14],
+    ['Toshiba 東芝', 15],
+    ['Sony 索尼', 16],
   ],
 };

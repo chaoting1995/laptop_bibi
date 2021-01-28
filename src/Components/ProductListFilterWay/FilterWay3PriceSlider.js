@@ -97,7 +97,7 @@ const IOSSlider = withStyles({
   // focusVisible: { background: '#505050' },
 })(Slider);
 
-//-------------------------style-------------------------//
+//-----------------------component-----------------------//
 function CustomizedSlider(props) {
   const [priceRangeNum, setPriceRangeNum] = useState([10000, 80000]);
   const { setPriceRange } = props;

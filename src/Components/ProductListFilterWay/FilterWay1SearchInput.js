@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+
 //-----------------------匯入icon--------------------------//
 import { ReactComponent as SearchIcon } from '../../images/search_icon.svg';
 //-----------------------style---------------------------//
@@ -41,7 +42,7 @@ const SearchBar = styled.div`
   }
 `;
 //-----------------------component---------------------------//
-const ProductListFWSearchInput = (props) => {
+const FilterWay1SearchInput = (props) => {
   //---------------------state & props-----------------------//
   const { setSearch } = props;
   const [searchText, setSearchText] = useState('');
@@ -65,4 +66,4 @@ const ProductListFWSearchInput = (props) => {
     </>
   );
 };
-export default ProductListFWSearchInput;
+export default FilterWay1SearchInput;

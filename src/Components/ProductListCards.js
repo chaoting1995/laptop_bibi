@@ -102,68 +102,11 @@ const ProductPrice = styled.div`
 `;
 
 const ProductListCards = (props) => {
-  const { productData, filterCondition } = props;
+  const { productData } = props;
   return (
     <>
       <Container>
         {productData.map((item, index) => {
-          //判斷價格是否在篩選範圍的函式
-          //const priceInPriceRange = (p) =>
-          //p >= priceRange[0] && p <= priceRange[1];
-          //篩選價格
-          //if (!priceInPriceRange(item.product_price)) return <></>;
-
-          //篩選硬碟
-          if (
-            Object.values(filterCondition.product_storage).includes(true) &&
-            !filterCondition.product_storage[item.product_storage]
-          )
-            return <></>;
-          //篩選處理器
-          if (
-            Object.values(filterCondition.product_CPU).includes(true) &&
-            !filterCondition.product_CPU[item.product_CPU]
-          )
-            return <></>;
-          //篩選記憶體
-          if (
-            Object.values(filterCondition.product_memory).includes(true) &&
-            !filterCondition.product_memory[item.product_memory]
-          )
-            return <></>;
-          //篩選電池
-          if (
-            Object.values(filterCondition.product_battery).includes(true) &&
-            !filterCondition.product_battery[item.product_battery]
-          )
-            return <></>;
-
-          //重量轉成重量範圍的函式
-          const weight2weightRange = (w) => {
-            // let w = +w.replace('kg', '');
-            // console.log(w);
-            if (1 > w) {
-              return '1kg以下(不含1kg)';
-            } else if (w >= 1.0 && w < 1.2) {
-              return '1.0-1.19kg';
-            } else if (w >= 1.2 && w < 1.4) {
-              return '1.2-1.39kg';
-            } else if (w >= 1.4 && w < 1.6) {
-              return '1.4-1.59kg';
-            } else if (w >= 1.6) {
-              return '1.6kg以上';
-            } else {
-              return '';
-            }
-          };
-          //篩選重量
-          if (
-            Object.values(filterCondition.product_weight).includes(true) &&
-            !filterCondition.product_weight[
-              weight2weightRange(item.product_weight)
-            ]
-          )
-            return <></>;
           //秀出篩選後的商品清單
           return (
             <QueueAnimA delay={50} className="queue-simple">

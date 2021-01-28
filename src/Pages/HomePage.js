@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getProductData } from '../utils/getProductData';
+import { itemsState } from '../Components/ProductListFilterWay/AsideItems/otherItems';
 //-------------------匯入樣式套件-----------------------//
 import './HomePage.scss';
 import styled from '@emotion/styled';
@@ -59,45 +60,13 @@ function HomePage(props) {
   //篩選品牌
   const [filterBrand, setFilterBrand] = useState('');
   //價格篩選
-  const [frontPrice, setFrontPrice] = useState('');
-  const [backPrice, setBackPrice] = useState('');
   const [priceRange, setPriceRange] = useState([]);
-
-  //價格排序
-  const [sort, setSort] = useState(0);
-  //清空篩選條件
-  const [queryReset, setQueryReset] = useState(0);
   //篩選條件的勾選狀態
-  const [filterCondition, setFilterCondition] = useState({
-    product_storage: {
-      '1TB SSD': false,
-      '56GB HDD': false,
-      '512GB HDD': false,
-      '1TB HDD': false,
-    },
-    product_CPU: {
-      'CORE i7': false,
-      'CORE i5': false,
-      'Ryzen 5': false,
-      'Silicon M1': false,
-    },
-    product_memory: { '8G': false, '16G': false },
-    product_battery: {
-      '20-29Wh': false,
-      '30-39Wh': false,
-      '40-49Wh': false,
-      '50-59Wh': false,
-      '60-69Wh': false,
-      '70-79Wh': false,
-    },
-    product_weight: {
-      '1kg以下(不含1kg)': false,
-      '1.0-1.19kg': false,
-      '1.2-1.39kg': false,
-      '1.4-1.59kg': false,
-      '1.6kg以上': false,
-    },
-  });
+  const [filterCondition, setFilterCondition] = useState(itemsState);
+  //價格排序
+  // const [sort, setSort] = useState(0);
+  // //清空篩選條件
+  // const [queryReset, setQueryReset] = useState(0);
   //--------------------取得商品資料------------------------//
   const getProductDataInSetState = useCallback(async () => {
     const data = await getProductData({
@@ -105,20 +74,20 @@ function HomePage(props) {
       filterBrand,
       frontPrice: priceRange[0],
       backPrice: priceRange[1],
-      sort,
-      queryReset,
+      filterCondition,
+      // sort,
+      // queryReset,
     });
     setProductData(data);
     // console.log('取商品資料', data);
-  }, [search, filterBrand, priceRange, sort, queryReset]);
-  //
+  }, [search, filterBrand, priceRange, filterCondition]);
+  //filterCondition , sort, queryReset
 
   // componentDidMount，一掛載就GET資料
   useEffect(() => {
     getProductDataInSetState();
   }, [getProductDataInSetState]);
 
-  // search, frontPrice, backPrice,
   //--------------------------JSX--------------------------//
   return (
     <>
@@ -138,11 +107,8 @@ function HomePage(props) {
               setSearch={setSearch}
               setFilterBrand={setFilterBrand}
               setPriceRange={setPriceRange}
-              // setBackPrice={setBackPrice}
-              // setFrontPrice={setFrontPrice}
               filterCondition={filterCondition}
               setFilterCondition={setFilterCondition}
-              getProductDataInSetState={getProductDataInSetState}
             />
           </Aside>
           <Main>
@@ -150,17 +116,11 @@ function HomePage(props) {
               productData={productData}
               setProductData={setProductData}
             />
-            <ProductListCards
-              productData={productData}
-              // setBackPrice={setBackPrice}
-              // setFrontPrice={setFrontPrice}
-              filterCondition={filterCondition}
-            />
+            <ProductListCards productData={productData} />
             <ProductListPageBar />
           </Main>
         </Row2>
         {/* 篩選方式與商品列表，結束 */}
-        {/* </div> */}
       </Container>
 
       {/* 頁尾，開始 */}

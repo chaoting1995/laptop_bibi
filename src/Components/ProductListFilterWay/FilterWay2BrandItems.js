@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import React from 'react';
 import { brandItems } from './AsideItems/brandItems';
 
 //-----------------------style---------------------------//
 
 //-----------------------component---------------------------//
-const ProductListFWSearchInput = (props) => {
+const FilterWay2BrandItems = (props) => {
   //---------------------state & props-----------------------//
   const { setFilterBrand } = props;
   return (
@@ -18,4 +17,4 @@ const ProductListFWSearchInput = (props) => {
     </>
   );
 };
-export default ProductListFWSearchInput;
+export default FilterWay2BrandItems;
