@@ -17,32 +17,26 @@ const Container = styled.div`
       font-weight: 600;
     }
   }
+  span:nth-of-type(${({ sort }) => sort + 1}) {
+    font-weight: 600;
+  }
 `;
 const ProductListSortByPrice = (props) => {
-  const { productData, setProductData } = props;
+  const { sort, setSort, productQuantity } = props;
 
   //價格預設排列
-  const priceDefault = () =>
-    setProductData(
-      [...productData].sort((a, b) => a.product_id - b.product_id)
-    );
+  const priceDefault = () => setSort(0);
 
   //價格由低到高
-  const priceASC = () =>
-    setProductData(
-      [...productData].sort((a, b) => a.product_price - b.product_price)
-    );
+  const priceASC = () => setSort(1);
 
   //價格由高到低
-  const priceDESC = () =>
-    setProductData(
-      [...productData].sort((a, b) => b.product_price - a.product_price)
-    );
+  const priceDESC = () => setSort(2);
 
   return (
     <>
-      <Container>
-        <div>共 {productData.length} 項商品</div>
+      <Container sort={sort}>
+        <div>共 {productQuantity} 項商品</div>
         <div>
           <span onClick={priceDefault}>預設</span>
           <span onClick={priceASC}>價格由低到高</span>

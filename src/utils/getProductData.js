@@ -4,18 +4,15 @@ export function getProductData({
   frontPrice,
   backPrice,
   sort,
-  queryReset,
 }) {
   let query = '';
   // if (page) query += `&page=${page}`;
-  // if (mainCate) query += `&mainCate=${mainCate}`;
-  // if (detailCate) query += `&detailCate=${detailCate}`;
   if (search) query += `search=${search}`;
-  if (filterBrand) query += `filterBrand=${filterBrand}`;
+  if (filterBrand === -1) query += `filterBrand=${''}`;
+  if (filterBrand !== -1) query += `filterBrand=${filterBrand}`;
   if (sort) query += `&sort=${sort}`;
   if (frontPrice || backPrice)
     query += `&frontPrice=${frontPrice}&backPrice=${backPrice}`;
-  if (queryReset) query = '';
 
   const url = `http://35.194.203.197/search_name.php?${query}`;
   const request = new Request(url, {

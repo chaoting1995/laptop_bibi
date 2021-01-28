@@ -54,19 +54,20 @@ const Aside = styled.aside`
 function HomePage(props) {
   //--------------------建立狀態-----------------------//
   //商品資料
-  const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState([10000, 80000]);
   //搜尋品牌或型號
   const [search, setSearch] = useState('');
   //篩選品牌
-  const [filterBrand, setFilterBrand] = useState('');
+  const [filterBrand, setFilterBrand] = useState(-1);
   //價格篩選
   const [priceRange, setPriceRange] = useState([]);
   //篩選條件的勾選狀態
   const [filterCondition, setFilterCondition] = useState(itemsState);
   //價格排序
-  // const [sort, setSort] = useState(0);
+  const [sort, setSort] = useState(0);
   // //清空篩選條件
   // const [queryReset, setQueryReset] = useState(0);
+
   //--------------------取得商品資料------------------------//
   const getProductDataInSetState = useCallback(async () => {
     const data = await getProductData({
@@ -75,14 +76,11 @@ function HomePage(props) {
       frontPrice: priceRange[0],
       backPrice: priceRange[1],
       filterCondition,
-      // sort,
-      // queryReset,
+      sort,
     });
     setProductData(data);
     // console.log('取商品資料', data);
-  }, [search, filterBrand, priceRange, filterCondition]);
-  //filterCondition , sort, queryReset
-
+  }, [search, filterBrand, priceRange, sort, filterCondition]);
   // componentDidMount，一掛載就GET資料
   useEffect(() => {
     getProductDataInSetState();
@@ -94,38 +92,38 @@ function HomePage(props) {
       <Container>
         {/* 頁首 */}
         <ProductListHeader />
-
+        {/* 待比較清單 */}
         <Row1>
-          {/* 待比較清單 */}
           <ProductListCompareBar />
         </Row1>
-
-        {/* 篩選方式與商品列表，開始 */}
         <Row2>
+          {/* 篩選方式 */}
           <Aside>
             <ProductListFilterWay
               setSearch={setSearch}
               setFilterBrand={setFilterBrand}
+              filterBrand={filterBrand}
               setPriceRange={setPriceRange}
               filterCondition={filterCondition}
               setFilterCondition={setFilterCondition}
             />
           </Aside>
+          {/* 價格排序功能列 */}
           <Main>
             <ProductListSortByPrice
-              productData={productData}
-              setProductData={setProductData}
+              sort={sort}
+              setSort={setSort}
+              productQuantity={productData.length}
             />
+            {/* 商品列表 */}
             <ProductListCards productData={productData} />
+            {/* 頁數選擇列 */}
             <ProductListPageBar />
           </Main>
         </Row2>
-        {/* 篩選方式與商品列表，結束 */}
       </Container>
-
-      {/* 頁尾，開始 */}
+      {/* 頁尾 */}
       <ProductFooter />
-      {/* 頁尾，結束 */}
     </>
   );
 }

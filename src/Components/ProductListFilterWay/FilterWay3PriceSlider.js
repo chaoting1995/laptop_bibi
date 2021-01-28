@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ValueLabelComponent(props) {
   const { children, open, value } = props;
-
   return (
     <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
       {children}
@@ -112,7 +111,7 @@ function CustomizedSlider(props) {
     <>
       <div className={classes.root}>
         <IOSSlider
-          aria-label="ios slider"
+          getaria-label="ios slider"
           defaultValue={[10000, 80000]}
           valueLabelDisplay="on"
           // min={0}
