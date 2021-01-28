@@ -2,6 +2,7 @@
 export const brandItems = {
   big_header: '品牌',
   little_headers: [
+    // ['所有', ''],
     ['所有', -1],
     ['ASUS 華碩', 0],
     ['acer 宏碁', 1],
@@ -14,11 +15,11 @@ export const brandItems = {
     ['Fujitsu 富士通', 8],
     ['LG', 9],
     ['Huawei 華為', 10],
-    ['Razer 雷蛇', 11],
+    // ['Razer 雷蛇', 11],
     ['Dell 戴爾', 12],
-    ['Nintendo 任天堂', 13],
-    ['Samsung 三星', 14],
+    // ['Nintendo 任天堂', 13],
+    // ['Samsung 三星', 14],
     ['Toshiba 東芝', 15],
-    ['Sony 索尼', 16],
+    // ['Sony 索尼', 16],
   ],
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
 
 //----------------------material-ui----------------------//
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -7,6 +8,7 @@ import Slider from '@material-ui/core/Slider';
 // import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import PropTypes from 'prop-types';
+// import styled from '@emotion/styled/types/base';
 
 //-------------------------style-------------------------//
 const useStyles = makeStyles((theme) => ({
@@ -96,6 +98,24 @@ const IOSSlider = withStyles({
   // focusVisible: { background: '#505050' },
 })(Slider);
 
+const Button = styled.button`
+  background-color: #507199;
+  border: 0px;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin-left: 180px;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  &:hover {
+    background-color: #385981;
+  }
+`;
+
 //-----------------------component-----------------------//
 function CustomizedSlider(props) {
   const [priceRangeNum, setPriceRangeNum] = useState([10000, 80000]);
@@ -124,13 +144,8 @@ function CustomizedSlider(props) {
 
         <div className={classes.margin} />
       </div>
-      <div className="d-flex justify-content-center mt-4">
-        <button
-          className="btn re-btn btn-rounded re-btn-border-color"
-          onClick={() => setPriceRange(priceRangeNum)}
-        >
-          查看商品
-        </button>
+      <div className="">
+        <Button onClick={() => setPriceRange(priceRangeNum)}>查看商品</Button>
       </div>
     </>
   );

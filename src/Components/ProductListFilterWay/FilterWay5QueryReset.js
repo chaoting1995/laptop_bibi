@@ -28,7 +28,7 @@ const FilterWay5QueryReset = (props) => {
 
   const handleQueryReset = () => {
     setSearch('');
-    setFilterBrand('');
+    setFilterBrand(-1);
     setPriceRange([10000, 80000]);
     setFilterCondition(itemsState);
   };

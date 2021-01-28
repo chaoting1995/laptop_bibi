@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   background-color: #efefefd1;
+  box-sizing: border-box;
   height: 40px;
   padding: 20px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
   span {
     margin-right: 10px;
     cursor: pointer;

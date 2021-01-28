@@ -17,7 +17,7 @@ import ProductListSortByPrice from '../Components/ProductListSortByPrice';
 // 商品清單-商品資訊卡
 import ProductListCards from '../Components/ProductListCards';
 // 商品清單-頁面選擇功能列
-import ProductListPageBar from '../Components/ProductListPageBar';
+import ProductListPagination from '../Components/ProductListPagination';
 // 商品清單-頁尾
 import ProductFooter from '../Components/ProductFooter';
 //--------------------style------------------------//
@@ -58,17 +58,19 @@ function HomePage(props) {
   //搜尋品牌或型號
   const [search, setSearch] = useState('');
   //篩選品牌
-  const [filterBrand, setFilterBrand] = useState(-1);
+  const [filterBrand, setFilterBrand] = useState(5);
+  // const [filterBrand, setFilterBrand] = useState(-1);
   //價格篩選
   const [priceRange, setPriceRange] = useState([]);
   //篩選條件的勾選狀態
   const [filterCondition, setFilterCondition] = useState(itemsState);
   //價格排序
   const [sort, setSort] = useState(0);
-  // //清空篩選條件
-  // const [queryReset, setQueryReset] = useState(0);
+  // 頁數選擇
+  const [page, setPage] = useState(1);
 
   //--------------------取得商品資料------------------------//
+  // Declare
   const getProductDataInSetState = useCallback(async () => {
     const data = await getProductData({
       search,
@@ -77,11 +79,15 @@ function HomePage(props) {
       backPrice: priceRange[1],
       filterCondition,
       sort,
+      page,
     });
     setProductData(data);
     // console.log('取商品資料', data);
-  }, [search, filterBrand, priceRange, sort, filterCondition]);
+  }, [search, filterBrand, priceRange, sort, filterCondition, page]);
   // componentDidMount，一掛載就GET資料
+  // console.log('productData.length', productData.length);
+
+  // invoke
   useEffect(() => {
     getProductDataInSetState();
   }, [getProductDataInSetState]);
@@ -117,8 +123,8 @@ function HomePage(props) {
             />
             {/* 商品列表 */}
             <ProductListCards productData={productData} />
-            {/* 頁數選擇列 */}
-            <ProductListPageBar />
+            {/* 分頁功能列 */}
+            <ProductListPagination page={page} setPage={setPage} />
           </Main>
         </Row2>
       </Container>
