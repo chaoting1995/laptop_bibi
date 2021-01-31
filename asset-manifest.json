@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/laptop_bibi/static/css/main.d2fa89ff.chunk.css",
+    "main.js": "/laptop_bibi/static/js/main.c3fc327f.chunk.js",
+    "main.js.map": "/laptop_bibi/static/js/main.c3fc327f.chunk.js.map",
+    "runtime-main.js": "/laptop_bibi/static/js/runtime-main.caaccf63.js",
+    "runtime-main.js.map": "/laptop_bibi/static/js/runtime-main.caaccf63.js.map",
+    "static/css/2.764ccc25.chunk.css": "/laptop_bibi/static/css/2.764ccc25.chunk.css",
+    "static/js/2.ff78bae3.chunk.js": "/laptop_bibi/static/js/2.ff78bae3.chunk.js",
+    "static/js/2.ff78bae3.chunk.js.map": "/laptop_bibi/static/js/2.ff78bae3.chunk.js.map",
+    "index.html": "/laptop_bibi/index.html",
+    "precache-manifest.c8f81b3953a1fab0111263e331a2cf63.js": "/laptop_bibi/precache-manifest.c8f81b3953a1fab0111263e331a2cf63.js",
+    "service-worker.js": "/laptop_bibi/service-worker.js",
+    "static/css/2.764ccc25.chunk.css.map": "/laptop_bibi/static/css/2.764ccc25.chunk.css.map",
+    "static/css/main.d2fa89ff.chunk.css.map": "/laptop_bibi/static/css/main.d2fa89ff.chunk.css.map",
+    "static/js/2.ff78bae3.chunk.js.LICENSE.txt": "/laptop_bibi/static/js/2.ff78bae3.chunk.js.LICENSE.txt",
+    "static/media/logo.774d50c7.svg": "/laptop_bibi/static/media/logo.774d50c7.svg",
+    "static/media/search_icon.ae637fb4.svg": "/laptop_bibi/static/media/search_icon.ae637fb4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.caaccf63.js",
+    "static/css/2.764ccc25.chunk.css",
+    "static/js/2.ff78bae3.chunk.js",
+    "static/css/main.d2fa89ff.chunk.css",
+    "static/js/main.c3fc327f.chunk.js"
+  ]
+}
