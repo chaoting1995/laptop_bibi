@@ -7,27 +7,28 @@ const Footer = styled.footer`
   background-color: rgb(158, 158, 158);
   ${'' /* padding-top: 50px; */}
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FooterText = styled.h1`
-  font-size: 15px;
-  color: #fff;
-  line-hight: 60px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  div {
+    font-size: 15px;
+    color: #fff;
+    line-hight: 60px;
+    margin: 50px 50px 0 50px;
+  }
+  p {
+    margin: 0;
+  }
 `;
 
 const ProductFooter = (props) => {
   return (
     <>
       <Footer>
-        <FooterText>
-          @2020電腦比比
-          <br />
-          成為合作夥伴
-          <br />
-          聯絡我們 laptopbibi.service@gmail.com
-        </FooterText>
+        <div>@2020電腦比比</div>
+        <div>
+          <p>成為合作夥伴</p>
+          <p>聯絡我們：laptopbibi.service@gmail.com</p>
+        </div>
       </Footer>
     </>
   );

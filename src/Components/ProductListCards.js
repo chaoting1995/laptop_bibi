@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import QueueAnim from 'rc-queue-anim';
-//樣式
+
+//--------------------style-----------------------//
 const Container = styled.div`
   ${'' /* background-color: rgb(144, 151, 151); */}
   display: flex;
@@ -101,8 +102,9 @@ const ProductPrice = styled.div`
   margin-bottom: 18px;
 `;
 
+//--------------------component-----------------------//
 const ProductListCards = (props) => {
-  const { productData } = props;
+  const { productData, compareList, handleAddToCompare, handleReset } = props;
   return (
     <>
       <Container>
@@ -120,8 +122,34 @@ const ProductListCards = (props) => {
                 <ProductBrand>{item.product_brand}</ProductBrand>
                 <ProductType>{item.product_name}</ProductType>
                 <ProductPrice>NT${item.product_price}</ProductPrice>
-                <button type="button" className="compare_btn">
-                  <span>+</span>加入比較表
+                <button
+                  type="button"
+                  onClick={() => {
+                    compareList.map((e) => e.id).includes(item.product_id)
+                      ? handleReset(
+                          compareList
+                            .map((e) => e.id)
+                            .findIndex((e) => e === item.product_id)
+                        )
+                      : handleAddToCompare(
+                          item.product_id,
+                          item.product_title_image,
+                          item.product_brand,
+                          item.product_name
+                        );
+                  }}
+                >
+                  {compareList
+                    .map((item) => item.id)
+                    .includes(item.product_id) ? (
+                    <div>
+                      <span>v</span>已加入比較表
+                    </div>
+                  ) : (
+                    <div>
+                      <span>+</span>加入比較表
+                    </div>
+                  )}
                 </button>
               </ProductCard>
             </QueueAnimA>

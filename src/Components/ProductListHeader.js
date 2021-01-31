@@ -24,6 +24,10 @@ const Header = styled.header`
     margin-left: 10px;
     font-weight: 400;
   }
+  h2 {
+    font-size: 20px;
+    font-weight: 400;
+  }
   div {
     display: flex;
     align-items: center;
@@ -40,7 +44,7 @@ const ProductListHeader = (props) => {
           <Logo />
           <h1>電腦比比</h1>
         </div>
-        <h1>商品列表</h1>
+        <h2>前往比較表</h2>
       </Header>
     </>
   );

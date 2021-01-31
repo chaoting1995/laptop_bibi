@@ -9,14 +9,14 @@ import 'normalize.css';
 
 // 引入 所有人的總元件
 import HomePage from './Pages/HomePage';
-import AAA from './Pages/SimpleAccordion';
+// import TestComponent from './Pages/TestComponent';
 
 // 安裝react router => npm install react-router-dom
 // 引入react router => 用於制定路由
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // 路由表
-function SimpleAccordion() {
+function App() {
   return (
     // <Router>元件一定要放在最外層
     <Router>
@@ -33,7 +33,7 @@ function SimpleAccordion() {
             <HomePage />
           </Route>
           <Route exact path="/test">
-            <AAA />
+            {/* <TestComponent /> */}
           </Route>
         </Switch>
         {/* </ScrollToTop>
@@ -47,4 +47,4 @@ function SimpleAccordion() {
   );
 }
 
-export default SimpleAccordion;
+export default App;

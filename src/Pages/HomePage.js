@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { getProductData } from '../utils/getProductData';
 import { itemsState } from '../Components/ProductListFilterWay/AsideItems/otherItems';
 //-------------------匯入樣式套件-----------------------//
-import './HomePage.scss';
 import styled from '@emotion/styled';
 
 //--------------------匯入子元件-----------------------//
@@ -54,20 +53,22 @@ const Aside = styled.aside`
 function HomePage(props) {
   //--------------------建立狀態-----------------------//
   //商品資料
-  const [productData, setProductData] = useState([10000, 80000]);
+  const [productData, setProductData] = useState([]);
   //搜尋品牌或型號
   const [search, setSearch] = useState('');
   //篩選品牌
-  const [filterBrand, setFilterBrand] = useState(5);
+  const [filterBrand, setFilterBrand] = useState(-1);
   // const [filterBrand, setFilterBrand] = useState(-1);
   //價格篩選
-  const [priceRange, setPriceRange] = useState([]);
+  const [priceRange, setPriceRange] = useState([10000, 80000]);
   //篩選條件的勾選狀態
   const [filterCondition, setFilterCondition] = useState(itemsState);
   //價格排序
   const [sort, setSort] = useState(0);
   // 頁數選擇
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  // 待比較清單
+  const [compareList, setCompareList] = useState([]);
 
   //--------------------取得商品資料------------------------//
   // Declare
@@ -92,6 +93,36 @@ function HomePage(props) {
     getProductDataInSetState();
   }, [getProductDataInSetState]);
 
+  //--------------------取得比較清單------------------------//
+
+  const readCompareListFromLocalStorage = () => {
+    const currentCompareList =
+      JSON.parse(localStorage.getItem('compareList')) || [];
+    setCompareList(currentCompareList); // 設定資料
+  };
+  useEffect(() => {
+    readCompareListFromLocalStorage();
+  }, []);
+
+  //------------------------handle-------------------------//
+
+  // 添加項目到「待比較狀態」中
+  const handleAddToCompare = (id, img, brand, name) => {
+    if (compareList.length < 4) {
+      const newItem = [...compareList, { id, img, brand, name }];
+      setCompareList(newItem);
+      localStorage.setItem('compareList', JSON.stringify(newItem || []));
+    } else {
+      alert('已超過選擇上限');
+    }
+  };
+
+  const handleReset = (removeIndex) => {
+    const currentItems = [...compareList];
+    currentItems.splice(removeIndex, 1);
+    setCompareList(currentItems);
+    localStorage.setItem('compareList', JSON.stringify(currentItems || []));
+  };
   //--------------------------JSX--------------------------//
   return (
     <>
@@ -100,7 +131,11 @@ function HomePage(props) {
         <ProductListHeader />
         {/* 待比較清單 */}
         <Row1>
-          <ProductListCompareBar />
+          <ProductListCompareBar
+            compareList={compareList}
+            handleAddToCompare={handleAddToCompare}
+            handleReset={handleReset}
+          />
         </Row1>
         <Row2>
           {/* 篩選方式 */}
@@ -122,7 +157,12 @@ function HomePage(props) {
               productQuantity={productData.length}
             />
             {/* 商品列表 */}
-            <ProductListCards productData={productData} />
+            <ProductListCards
+              productData={productData}
+              compareList={compareList}
+              handleAddToCompare={handleAddToCompare}
+              handleReset={handleReset}
+            />
             {/* 分頁功能列 */}
             <ProductListPagination page={page} setPage={setPage} />
           </Main>

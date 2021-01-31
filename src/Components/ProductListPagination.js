@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
 //-----------------------style---------------------------//
@@ -40,16 +40,16 @@ const Container = styled.div`
   }
 `;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-  outlinedPrimary: {
-    backgroundColor: 'red',
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     '& > *': {
+//       marginTop: theme.spacing(2),
+//     },
+//   },
+//   outlinedPrimary: {
+//     backgroundColor: 'red',
+//   },
+// }));
 
 //---------------------component-------------------------//
 
@@ -63,8 +63,9 @@ const ProductListPagination = (props) => {
   // totalRows: 250
   // }
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(28);
-  const classes = useStyles();
+  const [totalPage] = useState(28);
+  // const [totalPage, setTotalPage] = useState(28);
+  // const classes = useStyles();
 
   const handleChange = (event, value) => {
     setPage(value);

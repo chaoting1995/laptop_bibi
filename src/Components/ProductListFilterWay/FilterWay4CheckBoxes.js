@@ -1,11 +1,10 @@
 // import React from 'react';
-import React, { useState } from 'react';
+import React from 'react';
 //-------------------------style-------------------------//
 
 //-----------------------component----------------------//
 function FilterWay4CheckBoxes(props) {
   const { itemA, big_header, filterCondition, setFilterCondition } = props;
-  const [currentChecked, setCurrentChecked] = useState('');
 
   const onChangeFilterCondition = (key) => {
     setFilterCondition({
