@@ -104,7 +104,12 @@ const ProductPrice = styled.div`
 
 //--------------------component-----------------------//
 const ProductListCards = (props) => {
-  const { productData, compareList, handleAddToCompare, handleReset } = props;
+  const {
+    productData,
+    compareList,
+    handleAddToCompare,
+    handleRemoveFromCompare,
+  } = props;
   return (
     <>
       <Container>
@@ -126,7 +131,7 @@ const ProductListCards = (props) => {
                   type="button"
                   onClick={() => {
                     compareList.map((e) => e.id).includes(item.product_id)
-                      ? handleReset(
+                      ? handleRemoveFromCompare(
                           compareList
                             .map((e) => e.id)
                             .findIndex((e) => e === item.product_id)

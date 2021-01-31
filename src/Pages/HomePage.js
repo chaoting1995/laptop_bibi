@@ -58,9 +58,9 @@ function HomePage(props) {
   const [search, setSearch] = useState('');
   //篩選品牌
   const [filterBrand, setFilterBrand] = useState(-1);
-  // const [filterBrand, setFilterBrand] = useState(-1);
+  // const [filterBrand, setFilterBrand] = useState(0);
   //價格篩選
-  const [priceRange, setPriceRange] = useState([10000, 80000]);
+  const [priceRange, setPriceRange] = useState([]);
   //篩選條件的勾選狀態
   const [filterCondition, setFilterCondition] = useState(itemsState);
   //價格排序
@@ -107,22 +107,33 @@ function HomePage(props) {
   //------------------------handle-------------------------//
 
   // 添加項目到「待比較狀態」中
-  const handleAddToCompare = (id, img, brand, name) => {
-    if (compareList.length < 4) {
-      const newItem = [...compareList, { id, img, brand, name }];
-      setCompareList(newItem);
-      localStorage.setItem('compareList', JSON.stringify(newItem || []));
-    } else {
-      alert('已超過選擇上限');
-    }
-  };
-
-  const handleReset = (removeIndex) => {
+  const handleAddToCompare = useCallback(
+    (id, img, brand, name) => {
+      if (compareList.length < 4) {
+        const newItem = [...compareList, { id, img, brand, name }];
+        setCompareList(newItem);
+        localStorage.setItem('compareList', JSON.stringify(newItem || []));
+      } else {
+        alert('已超過選擇上限');
+      }
+    },
+    [compareList]
+  );
+  // 移除「待比較狀態」中的項目
+  const handleRemoveFromCompare = (removeIndex) => {
     const currentItems = [...compareList];
     currentItems.splice(removeIndex, 1);
     setCompareList(currentItems);
     localStorage.setItem('compareList', JSON.stringify(currentItems || []));
   };
+
+  // 重置刪選與搜尋
+  const handleQueryReset = useCallback(() => {
+    setSearch('');
+    setFilterBrand(-1);
+    setPriceRange([]);
+    setFilterCondition(itemsState);
+  }, []);
   //--------------------------JSX--------------------------//
   return (
     <>
@@ -134,7 +145,7 @@ function HomePage(props) {
           <ProductListCompareBar
             compareList={compareList}
             handleAddToCompare={handleAddToCompare}
-            handleReset={handleReset}
+            handleRemoveFromCompare={handleRemoveFromCompare}
           />
         </Row1>
         <Row2>
@@ -147,6 +158,7 @@ function HomePage(props) {
               setPriceRange={setPriceRange}
               filterCondition={filterCondition}
               setFilterCondition={setFilterCondition}
+              handleQueryReset={handleQueryReset}
             />
           </Aside>
           {/* 價格排序功能列 */}
@@ -161,7 +173,7 @@ function HomePage(props) {
               productData={productData}
               compareList={compareList}
               handleAddToCompare={handleAddToCompare}
-              handleReset={handleReset}
+              handleRemoveFromCompare={handleRemoveFromCompare}
             />
             {/* 分頁功能列 */}
             <ProductListPagination page={page} setPage={setPage} />

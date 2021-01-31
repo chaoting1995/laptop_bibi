@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 //-----------------------匯入icon--------------------------//
@@ -44,9 +44,14 @@ const SearchBar = styled.div`
 //-----------------------component---------------------------//
 const FilterWay1SearchInput = (props) => {
   //---------------------state & props-----------------------//
-  const { setSearch } = props;
+  const { setSearch, handleQueryReset } = props;
   const [searchText, setSearchText] = useState('');
 
+  //---------------------handle-----------------------//
+
+  useEffect(() => {
+    setSearchText('');
+  }, [handleQueryReset]);
   return (
     <>
       <SearchBar>
@@ -59,7 +64,12 @@ const FilterWay1SearchInput = (props) => {
             if (e.key === 'Enter' && searchText) setSearch(e.target.value);
           }}
         ></input>
-        <button type="button" onClick={() => setSearch(searchText)}>
+        <button
+          type="button"
+          onClick={() => {
+            if (searchText) setSearch(searchText);
+          }}
+        >
           <SearchIcon />
         </button>
       </SearchBar>

@@ -8,8 +8,8 @@ export function getProductData({
 }) {
   let query = '';
   if (search) query += `search=${search}`;
-  if (filterBrand === -1) query += `filterBrand=${''}`;
-  if (filterBrand !== -1 && filterBrand) query += `filterBrand=${filterBrand}`;
+  if (filterBrand === 0) query += `filterBrand=${0}`;
+  if (filterBrand > 0) query += `filterBrand=${filterBrand}`;
   if (sort) query += `&sort=${sort}`;
   if (frontPrice || backPrice)
     query += `&frontPrice=${frontPrice}&backPrice=${backPrice}`;

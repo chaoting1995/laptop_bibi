@@ -78,10 +78,16 @@ const Accordion = withStyles({
 const AccordionSummary = withStyles({
   root: {
     padding: '0',
+    height: '48px',
+    minHeight: '48px',
+    '&$expanded': {
+      height: '48px',
+      minHeight: '48px',
+    },
   },
   content: {
     '&$expanded': {
-      margin: '12px 0',
+      margin: '0',
     },
   },
   expanded: {},
@@ -90,7 +96,7 @@ const AccordionSummary = withStyles({
 const AccordionDetails = withStyles((theme) => ({
   root: {
     // padding: theme.spacing(2),
-    padding: '0 0 10px 0',
+    padding: '0 0 0 0',
     display: 'block', //添加覆蓋原本樣式
   },
 }))(AccordionDetailsA);
@@ -154,7 +160,6 @@ const ProductListFilterWay = (props) => {
             );
           })}
         </div>
-
         <QueryReset {...props} />
       </section>
     </>

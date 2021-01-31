@@ -98,21 +98,25 @@ const IOSSlider = withStyles({
   // focusVisible: { background: '#505050' },
 })(Slider);
 
-const Button = styled.button`
-  background-color: #507199;
-  border: 0px;
-  outline: none;
+const ButtonWrap = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  margin-left: 180px;
-  height: 35px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-  &:hover {
-    background-color: #385981;
+  button {
+    background-color: #507199;
+    border: 0px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    ${'' /* margin-left: 180px; */}
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    &:hover {
+      background-color: #385981;
+    }
   }
 `;
 
@@ -144,9 +148,9 @@ function CustomizedSlider(props) {
 
         <div className={classes.margin} />
       </div>
-      <div className="">
-        <Button onClick={() => setPriceRange(priceRangeNum)}>查看商品</Button>
-      </div>
+      <ButtonWrap>
+        <button onClick={() => setPriceRange(priceRangeNum)}>查看商品</button>
+      </ButtonWrap>
     </>
   );
 }

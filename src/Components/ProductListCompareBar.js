@@ -10,7 +10,7 @@ import { ReactComponent as SearchIcon } from '../images/search_icon.svg';
 const Container = styled.div`
   background-color: #efefef;
   ${'' /* min-width: 963px; */}
-  ${'' /* width: 100%; */}
+  width: 100%;
   height: 140px;
   margin-bottom: 40px;
   box-sizing: border-box;
@@ -178,7 +178,7 @@ const CompareBox = (props) => {
   const {
     compareList,
     handleAddToCompare,
-    handleReset,
+    handleRemoveFromCompare,
     compareListIndex,
   } = props;
 
@@ -197,10 +197,17 @@ const CompareBox = (props) => {
   useEffect(() => {
     getProductDataInSetState();
   }, [getProductDataInSetState]);
+
+  //--------------------handle-----------------------//
+  useEffect(() => {
+    setCompareInput('');
+  }, [handleAddToCompare]);
+
+  //--------------------JSX-----------------------//
   return (
     <>
       {compareList[compareListIndex] ? (
-        <CompareItemWap>
+        <CompareItemWap key={compareListIndex}>
           <div>
             <img src={compareList[compareListIndex].img} alt=""></img>
             <p>
@@ -208,10 +215,10 @@ const CompareBox = (props) => {
               {compareList[compareListIndex].name}
             </p>
           </div>
-          <div onClick={() => handleReset(compareListIndex)}>x</div>
+          <div onClick={() => handleRemoveFromCompare(compareListIndex)}>x</div>
         </CompareItemWap>
       ) : (
-        <CompareInputWap>
+        <CompareInputWap key={compareListIndex}>
           <input
             type="text"
             placeholder="輸入品牌或型號"
@@ -223,11 +230,11 @@ const CompareBox = (props) => {
           <SearchIcon />
           <CompareOptions compareListItem={compareList[compareListIndex]}>
             {productData &&
-              productData.map((item, index) => {
+              productData.map((item) => {
                 if (
                   compareList.map((item) => item.id).includes(item.product_id)
                 )
-                  return <></>;
+                  return <div key={item.product_id}></div>;
                 return (
                   <li
                     onClick={() => {
@@ -238,7 +245,7 @@ const CompareBox = (props) => {
                         item.product_name
                       );
                     }}
-                    key={index}
+                    key={item.product_id}
                   >
                     <p>
                       {item.product_brand} {item.product_name}
@@ -257,7 +264,7 @@ const CompareBox = (props) => {
 //--------------------component-----------------------//
 const ProductListCompareBar = (props) => {
   //--------------------state-----------------------//
-  const { compareList, handleAddToCompare, handleReset } = props;
+  const { compareList, handleAddToCompare, handleRemoveFromCompare } = props;
 
   //--------------------JSX-----------------------//
 
@@ -270,8 +277,9 @@ const ProductListCompareBar = (props) => {
               <CompareBox
                 compareList={compareList}
                 handleAddToCompare={handleAddToCompare}
-                handleReset={handleReset}
+                handleRemoveFromCompare={handleRemoveFromCompare}
                 compareListIndex={item}
+                key={item}
               />
             );
           })}

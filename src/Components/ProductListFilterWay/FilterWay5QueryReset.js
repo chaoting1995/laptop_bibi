@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { itemsState } from './AsideItems/otherItems';
 
 //-----------------------style---------------------------//
 const QueryResetWrap = styled.div`
@@ -19,19 +18,8 @@ const QueryResetWrap = styled.div`
 //-----------------------component---------------------------//
 const FilterWay5QueryReset = (props) => {
   //---------------------state & props-----------------------//
-  const {
-    setSearch,
-    setFilterBrand,
-    setPriceRange,
-    setFilterCondition,
-  } = props;
+  const { handleQueryReset } = props;
 
-  const handleQueryReset = () => {
-    setSearch('');
-    setFilterBrand(-1);
-    setPriceRange([10000, 80000]);
-    setFilterCondition(itemsState);
-  };
   return (
     <QueryResetWrap onClick={handleQueryReset}>
       清除篩選條件 <span>X</span>

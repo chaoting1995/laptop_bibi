@@ -12,7 +12,7 @@ const Header = styled.header`
   align-items: center;
   box-sizing: border-box;
   border-bottom: 1px solid white;
-  margin-bottom: 40px;
+  ${'' /* margin-bottom: 40px; */}
   svg {
     width: 40px;
     height: 40px;
@@ -44,7 +44,7 @@ const ProductListHeader = (props) => {
           <Logo />
           <h1>電腦比比</h1>
         </div>
-        <h2>前往比較表</h2>
+        {/* <h2>前往比較表</h2> */}
       </Header>
     </>
   );
